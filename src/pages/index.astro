@@ -1,0 +1,121 @@
+---
+import { Image } from 'astro:assets';
+import whole from '../assets/tomato-whole.png';
+import slice from '../assets/tomato-slice.png';
+import varieties from '../assets/tomato-varieties.png';
+import '@fontsource/anton/latin-400.css';
+import '@fontsource/anton/latin-ext-400.css';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-ext-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '@fontsource/instrument-serif/latin-ext-400-italic.css';
+import '@fontsource-variable/dm-sans';
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#cd2b22" />
+    <meta name="description" content="Z bliska wygląda jeszcze lepiej. Wizualna opowieść o kolorze, wnętrzu i różnorodności pomidorów." />
+    <meta property="og:title" content="Pomidor. Cała historia w jednym owocu." />
+    <meta property="og:description" content="Przewiń. Zajrzyj do środka. Odkryj pomidora na nowo." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Pomidor. Cała historia w jednym owocu.</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#opowiesc">Przejdź do opowieści</a>
+    <header class="site-header" id="poczatek">
+      <a class="wordmark" href="#poczatek" aria-label="Pomidor — początek strony">pomidor<span>.</span></a>
+      <nav aria-label="Rozdziały opowieści">
+        <a href="#kolor">Kolor<span>01</span></a>
+        <a href="#wnetrze">Wnętrze<span>02</span></a>
+        <a href="#roznorodnosc">Różnorodność<span>03</span></a>
+      </nav>
+      <button class="motion-toggle" type="button" aria-pressed="true" hidden>
+        <span class="motion-dot" aria-hidden="true"></span><span data-motion-label>Ruch: włączony</span>
+      </button>
+    </header>
+
+    <main id="opowiesc">
+      <section class="hero" id="kolor" aria-labelledby="hero-title">
+        <div class="hero-topline micro"><span>Mały hołd dla wielkiego owocu</span><span>Solanum lycopersicum</span></div>
+        <h1 id="hero-title" class="hero-title">POMIDOR<span>.</span></h1>
+        <div class="hero-art">
+          <div class="hero-shadow" aria-hidden="true"></div>
+          <div class="hero-float">
+            <Image class="hero-tomato" src={whole} alt="Duży, czerwony pomidor o nieregularnym, żebrowanym kształcie, z zieloną szypułką" widths={[480, 800, 1200]} sizes="(max-width: 700px) 92vw, 60vw" format="webp" quality={82} loading="eager" fetchpriority="high" />
+          </div>
+          <span class="hero-annotation micro" aria-hidden="true"><span class="annotation-line"></span>Naturalnie niedoskonały</span>
+        </div>
+        <div class="hero-copy">
+          <p>Cała historia<br />w jednym owocu.</p>
+          <span class="hero-description">Niby dobrze go znasz.<br />Ale spójrz jeszcze raz.</span>
+        </div>
+        <div class="hero-bottom">
+          <a class="scroll-cue" href="#wnetrze"><span class="micro">Przewiń. Zajrzyj do środka.</span><svg width="24" height="43" viewBox="0 0 24 43" fill="none" aria-hidden="true"><path d="M12 0v40M2 30l10 10 10-10" stroke="currentColor" stroke-width="1.5" /></svg></a>
+          <span class="chapter-index micro"><span class="index-dot" aria-hidden="true"></span>01 / KOLOR</span>
+        </div>
+      </section>
+
+      <section class="inside" id="wnetrze" aria-labelledby="inside-title">
+        <div class="section-label micro"><span>02 / WNĘTRZE</span><span>Z bliska robi się ciekawiej</span></div>
+        <div class="inside-layout">
+          <div class="inside-copy">
+            <h2 id="inside-title" class="serif-title" data-reveal>Zajrzyj<br />do <em>środka.</em></h2>
+            <p class="section-copy" data-reveal>Pod cienką skórką kryje się zupełnie inny krajobraz. Miąższ, komory nasienne i drobne nasiona zanurzone w żelu.</p>
+            <p class="inside-aside micro" data-reveal>Ten detal zasługuje na chwilę uwagi.</p>
+          </div>
+          <figure class="slice-stage">
+            <span class="slice-orbit" aria-hidden="true"></span>
+            <Image class="slice-image" src={slice} alt="Przekrój czerwonego pomidora z widocznym miąższem i komorami nasiennymi" widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
+            <figcaption class="slice-caption micro"><span class="caption-dot" aria-hidden="true"></span>Mały świat pod skórką</figcaption>
+          </figure>
+        </div>
+        <div class="inside-bottom micro"><span>Owoc w botanice. Warzywo w kuchni.</span><a href="#roznorodnosc" aria-label="Następny rozdział: różnorodność">Dalej <span aria-hidden="true">↘</span></a></div>
+      </section>
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track"><span>OKRĄGŁY. PODŁUŻNY. ŻEBROWANY. <i>ZAWSZE POMIDOR.</i>&nbsp;</span><span>OKRĄGŁY. PODŁUŻNY. ŻEBROWANY. <i>ZAWSZE POMIDOR.</i>&nbsp;</span></div>
+      </div>
+
+      <section class="variety" id="roznorodnosc" aria-labelledby="variety-title">
+        <div class="section-label micro"><span>03 / RÓŻNORODNOŚĆ</span><span>Każdy po swojemu</span></div>
+        <div class="variety-heading">
+          <h2 id="variety-title" class="serif-title" data-reveal>Jedna nazwa.<br /><em>Tyle osobowości.</em></h2>
+          <p class="section-copy" data-reveal>Czerwone to dopiero początek. Pomidory różnią się wielkością, kształtem i kolorem. Żółty, pomarańczowy, ciemny czy zielony — każdy ma swój charakter.</p>
+        </div>
+        <figure class="variety-stage">
+          <span class="variety-background-word" aria-hidden="true">RÓŻNE.</span>
+          <Image class="variety-image" src={varieties} alt="Kompozycja sześciu pomidorów: czerwonych, żółtego, pomarańczowego, ciemnego i zielonego w paski" widths={[600, 1000, 1600]} sizes="(max-width: 700px) 100vw, 85vw" format="webp" quality={82} loading="lazy" />
+          <figcaption class="micro">Różne kolory i kształty. Wspólny bohater.</figcaption>
+        </figure>
+        <div class="variety-note"><span class="micro">WARTO WIEDZIEĆ</span><p>Zielony pomidor nie zawsze jest niedojrzały. Istnieją odmiany, których owoce pozostają zielone także po dojrzeniu.</p></div>
+      </section>
+
+      <section class="finale" aria-labelledby="finale-title">
+        <span class="micro" data-reveal>To wszystko było w jednym pomidorze.</span>
+        <h2 id="finale-title" data-reveal>Niby zwyczajny.<br /><span>A jednak.</span></h2>
+        <a class="back-top" href="#poczatek">Spójrz jeszcze raz <span aria-hidden="true">↗</span></a>
+        <div class="finale-line" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main"><a class="wordmark" href="#poczatek" aria-label="Pomidor — wróć na początek">pomidor.</a><span class="micro">Z miłości do czerwieni.</span><span class="micro">Mała opowieść. Wielki pomidor.</span></div>
+      <details class="credits">
+        <summary>O opowieści i źródłach <span aria-hidden="true">+</span></summary>
+        <div class="credits-content">
+          <p>Fakty o pomidorach: <a href="https://www.kew.org/plants/tomato" target="_blank" rel="noopener noreferrer">Royal Botanic Gardens, Kew</a>, <a href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">Virginia Tech</a> i <a href="https://www.rhs.org.uk/plants/293883/solanum-lycopersicum-green-zebra/details" target="_blank" rel="noopener noreferrer">Royal Horticultural Society</a>.</p>
+          <p>Obrazy zostały wygenerowane na potrzeby wizualnej opowieści. Są ilustracjami, a nie dokumentacją konkretnych odmian lub ich anatomii.</p>
+        </div>
+      </details>
+    </footer>
+    <script>
+      import '../scripts/controller';
+    </script>
+  </body>
+</html>
