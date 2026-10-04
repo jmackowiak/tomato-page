@@ -17,8 +17,8 @@ export function createMotion(): () => void {
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
     });
 
-    gsap.from('.slice-image', {
-      rotation: desktop ? -18 : -8, scale: .88, y: desktop ? 60 : 25, ease: 'none',
+    gsap.from('.slice-illustration', {
+      rotation: desktop ? -10 : -5, scale: .94, y: desktop ? 40 : 15, ease: 'none',
       scrollTrigger: { trigger: '.inside', start: 'top 80%', end: 'bottom 80%', scrub: 1 },
     });
 

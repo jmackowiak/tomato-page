@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import whole from '../assets/tomato-whole.png';
-import slice from '../assets/tomato-slice.png';
+import TomatoCrossSection from '../components/TomatoCrossSection.astro';
 import varieties from '../assets/tomato-varieties.png';
 import '@fontsource/anton/latin-400.css';
 import '@fontsource/anton/latin-ext-400.css';
@@ -61,22 +61,7 @@ import '../styles/global.css';
         </div>
       </section>
 
-      <section class="inside" id="wnetrze" aria-labelledby="inside-title">
-        <div class="section-label micro"><span>02 / WNĘTRZE</span><span>Z bliska robi się ciekawiej</span></div>
-        <div class="inside-layout">
-          <div class="inside-copy">
-            <h2 id="inside-title" class="serif-title" data-reveal>Zajrzyj<br />do <em>środka.</em></h2>
-            <p class="section-copy" data-reveal>Pod cienką skórką kryje się zupełnie inny krajobraz. Miąższ, komory nasienne i drobne nasiona zanurzone w żelu.</p>
-            <p class="inside-aside micro" data-reveal>Ten detal zasługuje na chwilę uwagi.</p>
-          </div>
-          <figure class="slice-stage">
-            <span class="slice-orbit" aria-hidden="true"></span>
-            <Image class="slice-image" src={slice} alt="Przekrój czerwonego pomidora z widocznym miąższem i komorami nasiennymi" widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
-            <figcaption class="slice-caption micro"><span class="caption-dot" aria-hidden="true"></span>Mały świat pod skórką</figcaption>
-          </figure>
-        </div>
-        <div class="inside-bottom micro"><span>Owoc w botanice. Warzywo w kuchni.</span><a href="#roznorodnosc" aria-label="Następny rozdział: różnorodność">Dalej <span aria-hidden="true">↘</span></a></div>
-      </section>
+      <TomatoCrossSection />
 
       <div class="ticker" aria-hidden="true">
         <div class="ticker-track"><span>OKRĄGŁY. PODŁUŻNY. ŻEBROWANY. <i>ZAWSZE POMIDOR.</i>&nbsp;</span><span>OKRĄGŁY. PODŁUŻNY. ŻEBROWANY. <i>ZAWSZE POMIDOR.</i>&nbsp;</span></div>

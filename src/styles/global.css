@@ -27,6 +27,7 @@
   .section-label { display: flex; justify-content: space-between; gap: 20px; padding-bottom: 34px; border-top: 1px solid #fff1cf45; padding-top: 20px; }
   .skip-link { position: fixed; left: 16px; top: 12px; background: var(--cream); color: var(--ink); padding: 12px 20px; transform: translateY(-160%); z-index: 100; }
   .skip-link:focus { transform: translateY(0); }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
 }
 
 @layer components {
@@ -64,11 +65,31 @@
   .inside-layout { display: grid; grid-template-columns: .85fr 1.25fr; align-items: center; min-height: 620px; gap: 30px; }
   .inside-copy { position: relative; z-index: 2; padding-bottom: 30px; }
   .inside-copy .section-copy { margin-top: 33px; }
-  .inside-aside { margin-top: 34px; font-size: 9px; }
   .slice-stage { position: relative; padding-block: 20px; }
+  .slice-illustration { position: relative; }
   .slice-image { width: 100%; position: relative; z-index: 1; }
+  .slice-points { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+  .slice-pin { position: absolute; left: var(--pin-x); top: var(--pin-y); width: 48px; height: 48px; display: grid; place-items: center; padding: 0; border: 1px solid var(--cream); border-radius: 50%; background: var(--ink); color: var(--cream); cursor: pointer; pointer-events: auto; transform: translate(-50%, -50%); transition: transform .2s, background .2s, color .2s; }
+  .slice-pin-number { font-size: 12px; font-weight: 600; letter-spacing: .04em; }
+  .slice-pin:hover, .slice-pin:focus-visible { transform: translate(-50%, -50%) scale(1.08); }
+  .slice-pin[aria-pressed='true'] { background: var(--cream); color: var(--ink); }
+  .slice-pin-label { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); padding: 5px 9px; border-radius: 3px; background: var(--ink); color: var(--cream); font-size: 11px; line-height: 1.5; white-space: nowrap; opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .slice-pin[data-slice-part='skin'] .slice-pin-label { left: auto; right: 0; transform: none; }
+  .slice-pin[aria-pressed='true'] .slice-pin-label, .slice-pin:hover .slice-pin-label, .slice-pin:focus-visible .slice-pin-label { opacity: 1; }
   .slice-orbit { position: absolute; width: 94%; aspect-ratio: 1; left: 3%; top: 3%; border: 1px solid #fff1cf25; border-radius: 50%; }
-  .slice-caption { text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; padding-block: 10px; }
+  .slice-caption { text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; padding-block: 10px; font-size: 11px; line-height: 1.5; }
+  .slice-illustration-note { text-align: center; font-size: 10px; line-height: 1.6; }
+  .slice-detail { margin-top: 30px; padding-top: 18px; border-top: 1px solid #fff1cf45; max-width: 360px; }
+  .slice-detail-topline { display: flex; justify-content: space-between; gap: 15px; font-size: 9px; }
+  .slice-detail-content { min-height: 180px; padding-top: 12px; }
+  .slice-detail-content h3 { margin: 0 0 12px; font-family: 'Instrument Serif', Georgia, serif; font-size: 42px; font-weight: 400; line-height: 1.05; letter-spacing: -.02em; }
+  .slice-detail-content p { max-width: 340px; font-size: 14px; line-height: 1.75; }
+  .slice-source { display: inline-flex; align-items: center; gap: 8px; min-height: 36px; font-size: 11px; text-decoration: underline; text-underline-offset: 4px; }
+  .slice-fallback { margin-top: 30px; border-top: 1px solid #fff1cf45; font-size: 14px; line-height: 1.75; }
+  .slice-fallback summary { padding-block: 16px; cursor: pointer; }
+  .slice-fallback dl { margin: 0; }
+  .slice-fallback dt { font-weight: 600; margin-top: 16px; }
+  .slice-fallback dd { margin: 6px 0 0; }
   .caption-dot { display: block; width: 6px; height: 6px; border: 1px solid var(--cream); border-radius: 50%; }
   .inside-bottom { border-top: 1px solid #fff1cf45; padding-top: 20px; display: flex; justify-content: space-between; gap: 24px; }
   .inside-bottom a { padding: 8px; margin: -8px; }
@@ -117,7 +138,7 @@
     .site-header { gap: 20px; }
     .site-header nav { gap: 22px; }
     .inside-layout { min-height: 530px; gap: 12px; }
-    .inside-aside { max-width: 230px; }
+    .slice-detail-content { min-height: 230px; }
     .variety-heading .section-copy { max-width: 270px; }
     .section-label { font-size: 9px; }
   }
@@ -145,13 +166,15 @@
     .inside { padding-top: 30px; }
     .section-label { font-size: 8px; gap: 15px; padding-top: 15px; padding-bottom: 30px; }
     .section-label > span:last-child { text-align: right; }
-    .inside-layout { display: flex; flex-direction: column; gap: 0; }
-    .inside-copy { align-self: flex-start; padding-block: 20px 0; }
+    .inside-layout { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .inside-copy { display: contents; }
+    .inside-intro { grid-row: 1; padding-top: 20px; }
     .serif-title { font-size: clamp(64px, 16vw, 105px); }
     .inside-copy .section-copy { margin-top: 25px; max-width: 330px; }
-    .inside-aside { max-width: none; margin-top: 22px; font-size: 8px; }
-    .slice-stage { width: 106%; margin-inline: -3%; margin-top: 15px; }
-    .slice-caption { font-size: 8px; }
+    .slice-stage { grid-row: 2; width: 106%; margin-inline: -3%; margin-top: 15px; }
+    .slice-caption { font-size: 11px; }
+    .slice-detail, .slice-fallback { grid-row: 3; max-width: none; margin-top: 18px; }
+    .slice-detail-content { min-height: 180px; }
     .inside-bottom { font-size: 8px; padding-top: 18px; margin-top: 18px; align-items: center; }
     .inside-bottom > span { max-width: 220px; }
     .inside-bottom a { white-space: nowrap; }
