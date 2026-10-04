@@ -42,7 +42,7 @@
   .language-switcher summary { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; list-style: none; font-size: 22px; transition: background .2s; }
   .language-switcher summary::-webkit-details-marker { display: none; }
   .language-switcher summary:hover, .language-switcher[open] summary { background: #fff1cf12; }
-  .language-options { position: absolute; right: 0; top: calc(100% + 10px); min-width: 165px; margin: 0; padding: 6px; list-style: none; background: var(--ink); border: 1px solid #fff1cf45; border-radius: 12px; box-shadow: 0 12px 30px #69101740; }
+  .language-options { position: absolute; right: 0; top: calc(100% + 10px); min-width: 165px; margin: 0; padding: 6px; list-style: none; background: var(--ink); border: 1px solid #fff1cf45; border-radius: 12px; box-shadow: 0 12px 30px #69101740; transform-origin: top right; }
   .language-options a { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 12px; border-radius: 7px; font-size: 14px; }
   .language-options a:hover, .language-options a[aria-current='page'] { background: #fff1cf12; }
   .language-options a:focus-visible { outline-offset: -2px; }

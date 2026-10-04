@@ -41,6 +41,7 @@ Wynik produkcyjny jest w `dist/`, gotowy do hostingu statycznego. Astro 7 urucha
 - Opcjonalne nagrania krojenia pomidora i szelestu liści. Dźwięk jest wyłączony przy otwieraniu strony, ma własny przycisk i działa niezależnie od animacji. Lokalne pliki audio pobierają się dopiero po jego włączeniu.
 - Przycisk ruchu zapamiętuje wybór w przeglądarce.
 - Ikonki ruchu i dźwięku są w stopce, obok odnośnika do GitHuba; przełącznik języka pozostaje w nagłówku.
+- Lista języków otwiera się z krótką animacją panelu i kolejnych pozycji; zamknięcie przerywa animację, a ustawienia ograniczonego ruchu ją wyłączają.
 - `prefers-reduced-motion` wyłącza animacje i płynne przewijanie.
 - Bez JavaScriptu treść, zdjęcia, nawigacja i źródła pozostają dostępne.
 - GSAP ładuje się osobno, po podstawowych zasobach, gdy animacje są włączone.

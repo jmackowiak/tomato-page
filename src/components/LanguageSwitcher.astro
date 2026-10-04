@@ -20,6 +20,34 @@ const t = translator(locale);
 </details>
 <script>
   const switcher = document.querySelector<HTMLDetailsElement>('.language-switcher');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let animations: Animation[] = [];
+  const stop = () => {
+    animations.forEach((animation) => animation.cancel());
+    animations = [];
+  };
+  switcher?.addEventListener('toggle', () => {
+    stop();
+    if (!switcher.open || reducedMotion.matches || document.documentElement.dataset.motion === 'off') return;
+    const menu = switcher.querySelector<HTMLElement>('.language-options');
+    if (!menu) return;
+    animations.push(menu.animate(
+      [{ opacity: 0, transform: 'translateY(-8px) scale(.97)' }, { opacity: 1, transform: 'translateY(0) scale(1)' }],
+      { duration: 220, easing: 'cubic-bezier(.16, 1, .3, 1)' },
+    ));
+    menu.querySelectorAll('li').forEach((item, index) => {
+      animations.push(item.animate(
+        [{ opacity: 0, transform: 'translateY(5px)' }, { opacity: 1, transform: 'translateY(0)' }],
+        { duration: 180, delay: 35 * index, fill: 'backwards', easing: 'ease-out' },
+      ));
+    });
+  });
+  const respectMotion = () => {
+    if (reducedMotion.matches || document.documentElement.dataset.motion === 'off') stop();
+  };
+  reducedMotion.addEventListener('change', respectMotion);
+  new MutationObserver(respectMotion).observe(document.documentElement, { attributes: true, attributeFilter: ['data-motion'] });
+  window.addEventListener('pagehide', stop);
   document.addEventListener('click', (event) => {
     if (event.target instanceof Node && !switcher?.contains(event.target)) switcher?.removeAttribute('open');
   });
