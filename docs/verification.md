@@ -18,7 +18,7 @@
 
 ## Rozmiary skryptów produkcyjnych
 
-- Kontroler: 2644 B, 1283 B po gzip.
+- Kontroler z obsługą dźwięku: 4853 B, 2217 B po gzip.
 - Interaktywny przekrój, skrypt w HTML: 2652 B, 1245 B po gzip.
 - Osobno ładowany moduł GSAP/ScrollTrigger i animacji: 114587 B, 44569 B po gzip.
 
@@ -42,3 +42,14 @@ Są to rozmiary plików, a nie wynik audytu Lighthouse czy pomiar wydajności na
 ## Ocena wizualna
 
 Narzędzie T3 Code `preview_snapshot` działa z przerwami. Podczas prac nad przekrojem udało się obejrzeć zrzuty strony przy 320 i 1280 px. Sprawdzono układ punktów i panelu; ocena na prawdziwym telefonie i pomiar wydajności pozostają do wykonania.
+
+## Opcjonalne nagrania
+
+- Przy pierwszym otwarciu przycisk ma `aria-pressed="false"`, a liczba żądań plików audio wynosi 0.
+- Ręczne włączenie pobiera trzy lokalne pliki (łącznie 30 379 B), poprawnie dekoduje je i uruchamia szelest o długości 0,8 s w kontekście `running`.
+- Kliknięcia punktów uruchamiają naprzemiennie fragmenty 0,78 s i 0,6 s. Dwanaście szybkich kliknięć zatrzymało poprzednie źródła; nie tworzą kolejki.
+- Nawigacja uruchamia szelest. Krojenie działa również po wyłączeniu animacji.
+- Po wyciszeniu kolejne kliknięcia nie uruchamiają źródeł, a kontekst ma stan `suspended`.
+- W teście opóźnionego dekodowania wyłączenie przycisku podczas ładowania zapobiegło późniejszemu odtworzeniu efektu; liczba uruchomionych źródeł pozostała równa 0.
+- Nagłówek z dwoma przyciskami mieści się przy 320, 768, 928 i 1280 px, bez poziomego przewijania. Na telefonie przycisk dźwięku ma 44 × 44 px i etykietę dla czytników ekranu.
+- Szczegóły źródeł, przygotowania i ograniczenia odsłuchu: [audio-sources.md](audio-sources.md).

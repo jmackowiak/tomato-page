@@ -1,3 +1,7 @@
+import { initSound } from './sound';
+
+initSound();
+
 const button = document.querySelector<HTMLButtonElement>('.motion-toggle');
 const label = document.querySelector<HTMLElement>('[data-motion-label]');
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
