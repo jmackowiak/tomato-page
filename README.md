@@ -13,6 +13,16 @@ npm run dev
 
 Domyślny adres: `http://localhost:4321`.
 
+## Wersje językowe
+
+- Polski: `/`
+- Angielski: `/en/`
+- Włoski: `/it/`
+
+Przycisk z flagą w nagłówku rozwija listę języków. Działa również bez JavaScriptu. Każda wersja powstaje jako osobny statyczny HTML, z przetłumaczoną opowieścią, metadanymi, opisami obrazów, przekrojem i komunikatami kontrolek. Treści są w `src/i18n/content.ts`; wspólny widok w `src/components/TomatoPage.astro`. Do przeglądarki trafiają jedynie etykiety kontrolek dla bieżącego języka, a opisy przekroju wykorzystują istniejącą treść HTML.
+
+Weryfikacja wersji językowych: `npm run check`, `npm run build`, sprawdzenie odnośników i zasobów w trzech wynikowych stronach oraz kontrola układu przy szerokościach 320, 768 i 1280 px. Sprawdzono cztery punkty przekroju w każdym języku, zamykanie listy języków klawiszem Escape i komunikaty kontrolek po zmianie języka.
+
 ## Weryfikacja i build
 
 ```sh

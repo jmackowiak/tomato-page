@@ -1,5 +1,3 @@
-import { tomatoAnatomy } from '../data/tomato-anatomy';
-
 const section = document.querySelector<HTMLElement>('[data-cross-section]');
 if (section) {
   const points = section.querySelector<HTMLElement>('[data-slice-points]');
@@ -14,7 +12,18 @@ if (section) {
   const fallback = section.querySelector<HTMLElement>('[data-slice-fallback]');
   const buttons = [...section.querySelectorAll<HTMLButtonElement>('[data-slice-part]')];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  let selected: string = tomatoAnatomy[0].id;
+  // Reuse the localized, readable fallback instead of shipping all translations.
+  const tomatoAnatomy = buttons.map((button) => {
+    const entry = section.querySelector<HTMLElement>(`[data-slice-entry="${button.dataset.slicePart}"]`);
+    return {
+      id: button.dataset.slicePart!,
+      name: entry?.querySelector('dt')?.textContent ?? '',
+      description: entry?.querySelector('dd')?.textContent ?? '',
+      number: button.querySelector('.slice-pin-number')?.textContent ?? '',
+      x: parseFloat(button.style.getPropertyValue('--pin-x')),
+    };
+  });
+  let selected: string | undefined = tomatoAnatomy[0]?.id;
   let animations: Animation[] = [];
 
   const stopAnimations = () => {
@@ -80,6 +89,6 @@ if (section) {
     points.hidden = false;
     panel.hidden = false;
     fallback.hidden = true;
-    hint.textContent = 'Dotknij punktu. Odkryj detal.';
+    hint.textContent = section.dataset.interactiveHint ?? '';
   }
 }

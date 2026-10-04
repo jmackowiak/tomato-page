@@ -1,6 +1,8 @@
 import { initSound } from './sound';
+import { readUi } from '../i18n/ui';
 
 initSound();
+const ui = readUi();
 
 const button = document.querySelector<HTMLButtonElement>('.motion-toggle');
 const label = document.querySelector<HTMLElement>('[data-motion-label]');
@@ -21,8 +23,8 @@ async function updateMotion() {
     button.hidden = false;
     button.disabled = reducedMotion.matches;
     button.setAttribute('aria-pressed', String(animate));
-    label.textContent = reducedMotion.matches ? 'Ruch: ograniczony' : `Ruch: ${animate ? 'włączony' : 'wyłączony'}`;
-    button.title = reducedMotion.matches ? 'Animacje ograniczone zgodnie z ustawieniami urządzenia' : animate ? 'Wyłącz animacje' : 'Włącz animacje';
+    label.textContent = reducedMotion.matches ? ui.motionReduced : animate ? ui.motionOn : ui.motionOff;
+    button.title = reducedMotion.matches ? ui.motionDevice : animate ? ui.motionDisable : ui.motionEnable;
     button.setAttribute('aria-label', `${label.textContent}. ${button.title}`);
   }
   if (!animate) return;

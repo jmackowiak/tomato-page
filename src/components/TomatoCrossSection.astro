@@ -1,39 +1,44 @@
 ---
 import { Image } from 'astro:assets';
 import slice from '../assets/tomato-slice.png';
-import { tomatoAnatomy } from '../data/tomato-anatomy';
+import { getTomatoAnatomy } from '../data/tomato-anatomy';
+import { translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const tomatoAnatomy = getTomatoAnatomy(locale);
 const first = tomatoAnatomy[0];
 ---
 
-<section class="inside" id="wnetrze" aria-labelledby="inside-title" data-cross-section>
-  <div class="section-label micro"><span>02 / WNĘTRZE</span><span>Z bliska robi się ciekawiej</span></div>
+<section class="inside" id="wnetrze" aria-labelledby="inside-title" data-cross-section data-interactive-hint={t('interactiveHint')}>
+  <div class="section-label micro"><span>{t('insideIndex')}</span><span>{t('closer')}</span></div>
   <div class="inside-layout">
     <div class="inside-copy">
       <div class="inside-intro">
-        <h2 id="inside-title" class="serif-title" data-reveal>Zajrzyj<br />do <em>środka.</em></h2>
-        <p class="section-copy" data-reveal>Pod cienką skórką kryje się zupełnie inny krajobraz. Miąższ, komory nasienne i drobne nasiona zanurzone w żelu.</p>
+        <h2 id="inside-title" class="serif-title" data-reveal>{t('insideLine1')}<br />{t('insideLine2')}<em>{t('insideEmphasis')}</em></h2>
+        <p class="section-copy" data-reveal>{t('insideCopy')}</p>
       </div>
       <div class="slice-detail" id="slice-detail" role="region" aria-labelledby="slice-detail-title" hidden data-slice-panel>
-        <div class="slice-detail-topline micro"><span>ODKRYWASZ</span><span><span data-slice-number>{first.number}</span> / 04</span></div>
+        <div class="slice-detail-topline micro"><span>{t('discovering')}</span><span><span data-slice-number>{first.number}</span> / 04</span></div>
         <div class="slice-detail-content" data-slice-content>
           <h3 id="slice-detail-title" data-slice-title>{first.name}</h3>
           <p data-slice-description>{first.description}</p>
         </div>
-        <a class="slice-source" href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">O budowie pomidora <span aria-hidden="true">↗</span></a>
+        <a class="slice-source" href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">{t('anatomySource')} <span aria-hidden="true">↗</span></a>
       </div>
       <details class="slice-fallback" data-slice-fallback>
-        <summary>Poznaj wnętrze pomidora</summary>
-        <dl>{tomatoAnatomy.map((part) => <><dt>{part.name}</dt><dd>{part.description}</dd></>)}</dl>
+        <summary>{t('fallback')}</summary>
+        <dl>{tomatoAnatomy.map((part) => <div data-slice-entry={part.id}><dt>{part.name}</dt><dd>{part.description}</dd></div>)}</dl>
       </details>
     </div>
-    <figure class="slice-stage" aria-label="Przekrój pomidora">
+    <figure class="slice-stage" aria-label={t('crossSection')}>
       <span class="slice-orbit" aria-hidden="true"></span>
       <div class="slice-illustration">
         <div class="slice-response" data-slice-response>
-          <Image class="slice-image" src={slice} alt="Ilustracja przekroju pomidora: skórka na obwodzie, miąższ pomiędzy komorami, nasiona otoczone żelem" widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
-          <div class="slice-points" role="group" aria-label="Wybierz część pomidora, aby poznać jej opis" hidden data-slice-points>
+          <Image class="slice-image" src={slice} alt={t('sliceAlt')} widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
+          <div class="slice-points" role="group" aria-label={t('choosePart')} hidden data-slice-points>
             {tomatoAnatomy.map((part, index) => (
-              <button class="slice-pin" type="button" style={`--pin-x: ${part.x}%; --pin-y: ${part.y}%;`} aria-label={`${part.number}. ${part.name} — pokaż opis`} aria-pressed={index === 0 ? 'true' : 'false'} aria-controls="slice-detail" data-slice-part={part.id}>
+              <button class="slice-pin" type="button" style={`--pin-x: ${part.x}%; --pin-y: ${part.y}%;`} aria-label={`${part.number}. ${part.name} — ${t('showDescription')}`} aria-pressed={index === 0 ? 'true' : 'false'} aria-controls="slice-detail" data-slice-part={part.id}>
                 <span class="slice-pin-halo" aria-hidden="true"></span>
                 <span class="slice-pin-number">{part.number}</span>
                 <span class="slice-pin-label" aria-hidden="true">{part.name}</span>
@@ -42,12 +47,12 @@ const first = tomatoAnatomy[0];
           </div>
         </div>
       </div>
-      <figcaption class="slice-caption"><span class="caption-dot" aria-hidden="true"></span><span data-slice-hint>Mały świat pod skórką</span></figcaption>
-      <p class="slice-illustration-note">Ilustracja artystyczna. Położenie punktów jest orientacyjne.</p>
+      <figcaption class="slice-caption"><span class="caption-dot" aria-hidden="true"></span><span data-slice-hint>{t('sliceHint')}</span></figcaption>
+      <p class="slice-illustration-note">{t('illustrationNote')}</p>
     </figure>
     <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-slice-status></p>
   </div>
-  <div class="inside-bottom micro"><span>Owoc w botanice. Warzywo w kuchni.</span><a href="#roznorodnosc" aria-label="Następny rozdział: różnorodność">Dalej <span aria-hidden="true">↘</span></a></div>
+  <div class="inside-bottom micro"><span>{t('fruitFact')}</span><a href="#roznorodnosc" aria-label={t('nextLabel')}>{t('next')} <span aria-hidden="true">↘</span></a></div>
 </section>
 
 <script>

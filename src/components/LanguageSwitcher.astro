@@ -1,0 +1,32 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { languages, translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const current = languages.find((language) => language.code === locale)!;
+const t = translator(locale);
+---
+<details class="language-switcher">
+  <summary aria-label={t('languageLabel')} title={t('languageLabel')}>
+    <span aria-hidden="true">{current.flag}</span>
+  </summary>
+  <ul class="language-options">
+    {languages.map((language) => (
+      <li><a href={getRelativeLocaleUrl(language.code)} lang={language.code} hreflang={language.code} aria-current={language.code === locale ? 'page' : undefined}>
+        <span aria-hidden="true">{language.flag}</span><span>{language.name}</span>
+      </a></li>
+    ))}
+  </ul>
+</details>
+<script>
+  const switcher = document.querySelector<HTMLDetailsElement>('.language-switcher');
+  document.addEventListener('click', (event) => {
+    if (event.target instanceof Node && !switcher?.contains(event.target)) switcher?.removeAttribute('open');
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && switcher?.open) {
+      switcher.open = false;
+      switcher.querySelector('summary')?.focus();
+    }
+  });
+</script>

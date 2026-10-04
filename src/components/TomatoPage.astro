@@ -1,0 +1,142 @@
+---
+import { Image } from 'astro:assets';
+import whole from '../assets/tomato-whole.png';
+import TomatoCrossSection from '../components/TomatoCrossSection.astro';
+import varieties from '../assets/tomato-varieties.png';
+import '@fontsource/anton/latin-400.css';
+import '@fontsource/anton/latin-ext-400.css';
+import '@fontsource/instrument-serif/latin-400.css';
+import '@fontsource/instrument-serif/latin-ext-400.css';
+import '@fontsource/instrument-serif/latin-400-italic.css';
+import '@fontsource/instrument-serif/latin-ext-400-italic.css';
+import '@fontsource-variable/dm-sans';
+import '../styles/global.css';
+import { languages, translator, type Locale } from '../i18n/content';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { uiKeys } from '../i18n/ui';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#cd2b22" />
+    <meta name="description" content={t('description')} />
+    <meta property="og:title" content={t('title')} />
+    <meta property="og:description" content={t('socialDescription')} />
+    <meta property="og:type" content="website" />
+    {languages.map((language) => <link rel="alternate" hreflang={language.code} href={getRelativeLocaleUrl(language.code)} />)}
+    <link rel="alternate" hreflang="x-default" href={getRelativeLocaleUrl('pl')} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{t('title')}</title>
+  </head>
+  <body data-ui={JSON.stringify(ui)}>
+    <a class="skip-link" href="#opowiesc">{t('skip')}</a>
+    <header class="site-header" id="poczatek">
+      <a class="wordmark" href="#poczatek" aria-label={t('homeLabel')}>{t('heroTitle').toLowerCase()}<span>.</span></a>
+      <nav aria-label={t('chapters')}>
+        <a href="#kolor">{t('colour')}<span>01</span></a>
+        <a href="#wnetrze">{t('inside')}<span>02</span></a>
+        <a href="#roznorodnosc">{t('variety')}<span>03</span></a>
+      </nav>
+      <div class="experience-controls">
+        <LanguageSwitcher locale={locale} />
+        <button class="motion-toggle" type="button" aria-pressed="true" aria-label={`${t('motionOn')}. ${t('motionDisable')}`} hidden>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <g data-motion-on fill="currentColor" stroke="none"><rect x="7" y="5" width="3" height="14" rx=".75" /><rect x="14" y="5" width="3" height="14" rx=".75" /></g>
+            <path data-motion-off d="m8 5 11 7-11 7V5Z" />
+          </svg>
+          <span class="visually-hidden" data-motion-label>{t('motionOn')}</span>
+        </button>
+        <button class="sound-toggle" type="button" aria-pressed="false" aria-label={`${t('soundOff')}. ${t('soundEnable')}`} hidden>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+            <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+            <path data-sound-off d="m16 9 5 6m0-6-5 6" />
+            <path data-sound-on d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" />
+          </svg>
+          <span class="visually-hidden" data-sound-label>{t('soundOff')}</span>
+        </button>
+      </div>
+      <p class="visually-hidden" role="status" aria-live="polite" data-sound-status></p>
+    </header>
+
+    <main id="opowiesc">
+      <section class="hero" id="kolor" aria-labelledby="hero-title">
+        <div class="hero-topline micro"><span>{t('heroEyebrow')}</span><span>Solanum lycopersicum</span></div>
+        <h1 id="hero-title" class="hero-title">{t('heroTitle')}<span>.</span></h1>
+        <div class="hero-art">
+          <div class="hero-shadow" aria-hidden="true"></div>
+          <div class="hero-float">
+            <Image class="hero-tomato" src={whole} alt={t('wholeAlt')} widths={[480, 800, 1200]} sizes="(max-width: 700px) 92vw, 60vw" format="webp" quality={82} loading="eager" fetchpriority="high" />
+          </div>
+          <span class="hero-annotation micro" aria-hidden="true"><span class="annotation-line"></span>{t('imperfect')}</span>
+        </div>
+        <div class="hero-copy">
+          <p>{t('heroLine1')}<br />{t('heroLine2')}</p>
+          <span class="hero-description">{t('heroDescription1')}<br />{t('heroDescription2')}</span>
+        </div>
+        <div class="hero-bottom">
+          <a class="scroll-cue" href="#wnetrze"><span class="micro">{t('scroll')}</span><svg width="24" height="43" viewBox="0 0 24 43" fill="none" aria-hidden="true"><path d="M12 0v40M2 30l10 10 10-10" stroke="currentColor" stroke-width="1.5" /></svg></a>
+          <span class="chapter-index micro"><span class="index-dot" aria-hidden="true"></span>{t('colourIndex')}</span>
+        </div>
+      </section>
+
+      <TomatoCrossSection locale={locale} />
+
+      <div class="ticker" aria-hidden="true">
+        <div class="ticker-track"><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span></div>
+      </div>
+
+      <section class="variety" id="roznorodnosc" aria-labelledby="variety-title">
+        <div class="section-label micro"><span>{t('varietyIndex')}</span><span>{t('individual')}</span></div>
+        <div class="variety-heading">
+          <h2 id="variety-title" class="serif-title" data-reveal>{t('varietyLine1')}<br /><em>{t('varietyLine2')}</em></h2>
+          <p class="section-copy" data-reveal>{t('varietyCopy')}</p>
+        </div>
+        <figure class="variety-stage">
+          <span class="variety-background-word" aria-hidden="true">{t('different')}</span>
+          <Image class="variety-image" src={varieties} alt={t('varietyAlt')} widths={[600, 1000, 1600]} sizes="(max-width: 700px) 100vw, 85vw" format="webp" quality={82} loading="lazy" />
+          <figcaption class="micro">{t('varietyCaption')}</figcaption>
+        </figure>
+        <div class="variety-note"><span class="micro">{t('know')}</span><p>{t('greenFact')}</p></div>
+      </section>
+
+      <section class="finale" aria-labelledby="finale-title">
+        <span class="micro" data-reveal>{t('finaleEyebrow')}</span>
+        <h2 id="finale-title" data-reveal>{t('finaleLine1')}<br /><span>{t('finaleLine2')}</span></h2>
+        <a class="back-top" href="#poczatek">{t('lookAgain')} <span aria-hidden="true">↗</span></a>
+        <div class="finale-line" aria-hidden="true"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <a class="wordmark" href="#poczatek" aria-label={t('backLabel')}>{t('heroTitle').toLowerCase()}.</a>
+        <span class="micro">{t('redLove')}</span>
+        <span class="micro">{t('smallStory')}</span>
+        <a class="author-link" href="https://github.com/jmackowiak" target="_blank" rel="noopener noreferrer" aria-label={t('githubLabel')}>
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false">
+            <path d="M12 .297C5.37.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.93 0-1.31.467-2.38 1.236-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.22 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+          </svg>
+        </a>
+      </div>
+      <details class="credits">
+        <summary>{t('credits')} <span aria-hidden="true">+</span></summary>
+        <div class="credits-content">
+          <p>{t('facts')} <a href="https://www.kew.org/plants/tomato" target="_blank" rel="noopener noreferrer">Royal Botanic Gardens, Kew</a>, <a href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">Virginia Tech</a>{t('and')}<a href="https://www.rhs.org.uk/plants/293883/solanum-lycopersicum-green-zebra/details" target="_blank" rel="noopener noreferrer">Royal Horticultural Society</a>.</p>
+          <p>{t('imageCredit')}</p>
+          <p>{t('soundCredit')} <a href="https://freesound.org/people/SpliceSound/sounds/188192/" target="_blank" rel="noopener noreferrer">{t('cutCredit')}</a>{t('and')}<a href="https://freesound.org/people/giddster/sounds/437356/" target="_blank" rel="noopener noreferrer">{t('leavesCredit')}</a>.</p>
+        </div>
+      </details>
+    </footer>
+    <script>
+      import '../scripts/controller';
+    </script>
+  </body>
+</html>

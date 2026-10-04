@@ -1,3 +1,5 @@
+import { readUi } from '../i18n/ui';
+
 const soundFiles = {
   cut1: '/audio/tomato-cut-1.m4a',
   cut2: '/audio/tomato-cut-2.m4a',
@@ -6,6 +8,7 @@ const soundFiles = {
 type SoundName = keyof typeof soundFiles;
 
 export function initSound() {
+  const ui = readUi();
   const button = document.querySelector<HTMLButtonElement>('.sound-toggle');
   const label = document.querySelector<HTMLElement>('[data-sound-label]');
   const status = document.querySelector<HTMLElement>('[data-sound-status]');
@@ -26,9 +29,9 @@ export function initSound() {
   const updateButton = () => {
     button.hidden = false;
     button.setAttribute('aria-pressed', String(enabled));
-    label.textContent = failed ? 'Dźwięk: niedostępny' : loading ? 'Dźwięk: ładowanie' : `Dźwięk: ${enabled ? 'włączony' : 'wyłączony'}`;
-    button.setAttribute('aria-label', `${label.textContent}. ${enabled ? 'Wyłącz' : 'Włącz'} dźwięki strony`);
-    button.title = enabled ? 'Wyłącz dźwięki strony' : 'Włącz krojenie pomidora i szelest liści';
+    label.textContent = failed ? ui.soundUnavailable : loading ? ui.soundLoading : enabled ? ui.soundOn : ui.soundOff;
+    button.setAttribute('aria-label', `${label.textContent}. ${enabled ? ui.soundDisable : ui.soundEnable}`);
+    button.title = enabled ? ui.soundDisable : ui.soundEnableTitle;
   };
 
   const stop = () => {
@@ -44,7 +47,7 @@ export function initSound() {
     failed = true;
     stop();
     updateButton();
-    if (status) status.textContent = 'Nie udało się włączyć dźwięku. Możesz spróbować ponownie.';
+    if (status) status.textContent = ui.soundFailure;
   };
 
   const play = (name: SoundName) => {
@@ -104,7 +107,7 @@ export function initSound() {
       if (revision !== toggleRevision || !enabled) return;
       loading = false;
       updateButton();
-      if (status) status.textContent = 'Dźwięki włączone. Odkryj punkty przekroju lub zmień rozdział.';
+      if (status) status.textContent = ui.soundReady;
       play('leaves');
     } catch {
       if (revision === toggleRevision) muteAfterFailure();

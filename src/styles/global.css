@@ -38,6 +38,15 @@
   .site-header nav a:hover::after { transform: scaleX(1); }
   .site-header nav span { font-size: 9px; }
   .experience-controls { display: flex; align-items: center; gap: 8px; }
+  .language-switcher { position: relative; }
+  .language-switcher summary { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; list-style: none; font-size: 22px; transition: background .2s; }
+  .language-switcher summary::-webkit-details-marker { display: none; }
+  .language-switcher summary:hover, .language-switcher[open] summary { background: #fff1cf12; }
+  .language-options { position: absolute; right: 0; top: calc(100% + 10px); min-width: 165px; margin: 0; padding: 6px; list-style: none; background: var(--ink); border: 1px solid #fff1cf45; border-radius: 12px; box-shadow: 0 12px 30px #69101740; }
+  .language-options a { display: flex; align-items: center; gap: 12px; min-height: 44px; padding: 8px 12px; border-radius: 7px; font-size: 14px; }
+  .language-options a:hover, .language-options a[aria-current='page'] { background: #fff1cf12; }
+  .language-options a:focus-visible { outline-offset: -2px; }
+  .language-options a > span:first-child { font-size: 20px; }
   .motion-toggle, .sound-toggle { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; flex-shrink: 0; background: transparent; border: 0; border-radius: 50%; padding: 0; cursor: pointer; transition: background .2s; }
   .motion-toggle:hover, .sound-toggle:hover { background: #fff1cf12; }
   .motion-toggle:disabled { cursor: default; opacity: .45; }
@@ -47,6 +56,7 @@
   .hero-topline { display: flex; justify-content: space-between; padding-top: 15px; }
   .hero-title { position: relative; z-index: -1; margin-top: 24px; font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(140px, 24.7vw, 460px); line-height: .96; letter-spacing: -.035em; white-space: nowrap; }
   .hero-title span { display: inline-block; }
+  html[lang='it'] .hero-title { font-size: clamp(120px, 20.7vw, 390px); }
   .hero-art { position: absolute; top: 12%; right: 6%; width: min(59vw, 79svh, 860px); }
   .hero-float { position: relative; }
   .hero-tomato { width: 100%; position: relative; }
@@ -146,7 +156,7 @@
   }
   @media (max-width: 700px) {
     :root { --gutter: 22px; }
-    .site-header { display: grid; grid-template-columns: 1fr auto; padding-block: 20px 10px; row-gap: 15px; column-gap: 10px; }
+    .site-header { display: grid; grid-template-columns: 1fr auto; padding-block: 20px 10px; row-gap: 15px; column-gap: 8px; }
     .site-header .wordmark { font-size: 35px; }
     .site-header nav { grid-row: 2; grid-column: 1 / -1; justify-content: space-between; width: 100%; padding-top: 8px; border-top: 1px solid #fff1cf30; gap: 14px; }
     .site-header nav a { font-size: 12px; }
@@ -156,6 +166,7 @@
     .hero-topline > span:first-child { max-width: 170px; }
     .hero-topline > span:last-child { white-space: nowrap; letter-spacing: .08em; }
     .hero-title { font-size: 24.3vw; margin-top: 22px; }
+    html[lang='it'] .hero-title { font-size: 20.4vw; }
     .hero-art { top: 96px; width: 96vw; max-width: 520px; right: -2vw; }
     .hero-copy { bottom: 124px; }
     .hero-copy > p { font-size: clamp(44px, 12vw, 68px); }
@@ -200,7 +211,7 @@
     .footer-main .wordmark { width: 100%; }
     .footer-main .micro { font-size: 8px; }
   }
-  @media (max-width: 380px) { .hero { min-height: 680px; } .hero-topline { font-size: 7px; } .hero-copy > p { font-size: 42px; } .site-header nav { gap: 10px; } }
+  @media (max-width: 380px) { .hero { min-height: 680px; } .hero-topline { font-size: 7px; } .hero-copy > p { font-size: 42px; } .site-header nav { gap: 10px; } html[lang='it'] .variety-heading .serif-title { font-size: 54px; } }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto !important; } *, *::before, *::after { transition-duration: 0s !important; } }
   html[data-motion='off'] { scroll-behavior: auto !important; }
   html[data-motion='off'] *, html[data-motion='off'] *::before, html[data-motion='off'] *::after { transition-duration: 0s !important; }
