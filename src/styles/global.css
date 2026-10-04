@@ -99,6 +99,8 @@
   .footer-main { display: flex; justify-content: space-between; align-items: center; gap: 30px; border-top: 1px solid #fff1cf45; padding-top: 35px; padding-bottom: 40px; }
   .footer-main .wordmark { font-size: 34px; }
   .footer-main .micro { font-size: 9px; }
+  .author-link { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; font-size: 11px; white-space: nowrap; text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 4px; transition: text-decoration-color .2s; }
+  .author-link:hover { text-decoration-color: currentColor; }
   .credits { border-top: 1px solid #fff1cf30; font-size: 11px; line-height: 1.7; }
   .credits summary { padding: 17px 0 5px; cursor: pointer; width: fit-content; }
   .credits summary > span { margin-left: 10px; }
