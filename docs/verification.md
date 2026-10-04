@@ -18,7 +18,7 @@
 
 ## Rozmiary skryptów produkcyjnych
 
-- Kontroler z obsługą dźwięku: 4853 B, 2217 B po gzip.
+- Kontroler z obsługą dźwięku: 4922 B, 2231 B po gzip.
 - Interaktywny przekrój, skrypt w HTML: 2652 B, 1245 B po gzip.
 - Osobno ładowany moduł GSAP/ScrollTrigger i animacji: 114587 B, 44569 B po gzip.
 
@@ -51,5 +51,5 @@ Narzędzie T3 Code `preview_snapshot` działa z przerwami. Podczas prac nad prze
 - Nawigacja uruchamia szelest. Krojenie działa również po wyłączeniu animacji.
 - Po wyciszeniu kolejne kliknięcia nie uruchamiają źródeł, a kontekst ma stan `suspended`.
 - W teście opóźnionego dekodowania wyłączenie przycisku podczas ładowania zapobiegło późniejszemu odtworzeniu efektu; liczba uruchomionych źródeł pozostała równa 0.
-- Nagłówek z dwoma przyciskami mieści się przy 320, 768, 928 i 1280 px, bez poziomego przewijania. Na telefonie przycisk dźwięku ma 44 × 44 px i etykietę dla czytników ekranu.
+- Nagłówek z dwoma przyciskami mieści się przy 320, 768, 928 i 1280 px, bez poziomego przewijania. Oba przełączniki wyświetlają wyłącznie ikony, mają pola kliknięcia 44 × 44 px i aktualizowane etykiety dla czytników ekranu. Ruch przełącza ikonę pauzy/odtwarzania, a dźwięk głośnik z falami/przekreśleniem.
 - Szczegóły źródeł, przygotowania i ograniczenia odsłuchu: [audio-sources.md](audio-sources.md).

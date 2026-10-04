@@ -22,7 +22,8 @@ async function updateMotion() {
     button.disabled = reducedMotion.matches;
     button.setAttribute('aria-pressed', String(animate));
     label.textContent = reducedMotion.matches ? 'Ruch: ograniczony' : `Ruch: ${animate ? 'włączony' : 'wyłączony'}`;
-    button.title = reducedMotion.matches ? 'Animacje ograniczone zgodnie z ustawieniami urządzenia' : 'Włącz lub wyłącz animacje';
+    button.title = reducedMotion.matches ? 'Animacje ograniczone zgodnie z ustawieniami urządzenia' : animate ? 'Wyłącz animacje' : 'Włącz animacje';
+    button.setAttribute('aria-label', `${label.textContent}. ${button.title}`);
   }
   if (!animate) return;
   try {
