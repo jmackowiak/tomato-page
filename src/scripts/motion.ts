@@ -25,7 +25,12 @@ export function createMotion(): () => void {
     if (ripening && scene && frames.length === 3 && stages.length === 3) {
       ripening.dataset.ripeningAnimated = 'true';
       // The default layout shows all three illustrations without animation.
-      const pin = desktop && Boolean(context.conditions?.tall) && scene.offsetHeight <= window.innerHeight - 16;
+      const fullscreen = desktop && Boolean(context.conditions?.tall);
+      if (fullscreen) ripening.dataset.ripeningPinned = 'true';
+      // Let the illustration area grow, keeping the stages at the viewport bottom.
+      // If the content needs more room, use the ordinary scrolling layout.
+      const pin = fullscreen && scene.scrollHeight <= window.innerHeight + 1;
+      if (!pin) delete ripening.dataset.ripeningPinned;
       gsap.set(frames, { autoAlpha: 0 });
       gsap.set(frames[0], { autoAlpha: 1 });
       gsap.set(dots, { opacity: .4, scale: 1 });
@@ -69,10 +74,27 @@ export function createMotion(): () => void {
 
     const float = gsap.getTweensOf('.hero-float');
     ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { float.forEach((tween) => self.isActive ? tween.resume() : tween.pause()); } });
-    return () => { if (ripening) delete ripening.dataset.ripeningAnimated; };
+    return () => {
+      if (ripening) {
+        delete ripening.dataset.ripeningAnimated;
+        delete ripening.dataset.ripeningPinned;
+      }
+    };
   });
 
   const refresh = () => ScrollTrigger.refresh();
+  let resizeTimer: number | undefined;
+  let viewportWidth = window.innerWidth;
+  let viewportHeight = window.innerHeight;
+  const resize = () => {
+    if (viewportWidth === window.innerWidth && viewportHeight === window.innerHeight) return;
+    viewportWidth = window.innerWidth;
+    viewportHeight = window.innerHeight;
+    window.clearTimeout(resizeTimer);
+    // Refresh after resizing even when ScrollTrigger is waiting for scrollEnd.
+    resizeTimer = window.setTimeout(refresh, 200);
+  };
+  window.addEventListener('resize', resize);
   const visibility = () => { gsap.globalTimeline.paused(document.hidden); };
   document.addEventListener('visibilitychange', visibility);
   document.fonts.ready.then(() => { if (active) refresh(); });
@@ -83,6 +105,8 @@ export function createMotion(): () => void {
 
   return () => {
     active = false;
+    window.clearTimeout(resizeTimer);
+    window.removeEventListener('resize', resize);
     media.revert();
     images.forEach((img) => img.removeEventListener('load', refresh));
     document.removeEventListener('visibilitychange', visibility);

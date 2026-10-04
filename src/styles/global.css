@@ -83,6 +83,9 @@
   .ripening[data-ripening-animated='true'] .ripening-art { width: min(100%, 58svh, 640px); }
   .ripening[data-ripening-animated='true'] .ripening-images { display: block; position: relative; aspect-ratio: 1; }
   .ripening[data-ripening-animated='true'] .ripening-frame { position: absolute; inset: 0; }
+  .ripening[data-ripening-pinned='true'] .ripening-scene { display: flex; flex-direction: column; height: 100svh; }
+  .ripening[data-ripening-pinned='true'] .ripening-layout { flex: 1; }
+  .ripening[data-ripening-pinned='true'] .ripening-scene > :not(.ripening-layout) { flex-shrink: 0; }
   .ripening-progress { height: 1px; margin-top: 18px; background: #fff1cf35; }
   .ripening-progress > span { display: block; height: 100%; background: var(--cream); transform-origin: left; }
   .ripening-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 18px 0 0; }
