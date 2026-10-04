@@ -1,0 +1,49 @@
+---
+import { Image } from 'astro:assets';
+import green from '../assets/tomato-green.png';
+import orange from '../assets/tomato-orange.png';
+import red from '../assets/tomato-whole.png';
+import { translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const stages = [
+  { image: green, name: t('ripeningGreen'), copy: t('ripeningGreenCopy'), colour: '#b6c86b' },
+  { image: orange, name: t('ripeningOrange'), copy: t('ripeningOrangeCopy'), colour: '#ffac4d' },
+  { image: red, name: t('ripeningRed'), copy: t('ripeningRedCopy'), colour: '#ff6154' },
+];
+---
+<section class="ripening" id="dojrzewanie" aria-labelledby="ripening-title" data-ripening>
+  <div class="ripening-scene" data-ripening-scene>
+    <div class="section-label micro"><span>{t('ripeningIndex')}</span><span>{t('ripeningEyebrow')}</span></div>
+    <div class="ripening-layout">
+      <div class="ripening-copy">
+        <h2 class="serif-title ripening-title" id="ripening-title">{t('ripeningLine1')}<br /><em>{t('ripeningEmphasis')}</em></h2>
+        <p class="section-copy">{t('ripeningIntro')}</p>
+      </div>
+      <figure class="ripening-art" role="img" aria-label={t('ripeningArt')}>
+        <div class="ripening-images" data-ripening-images>
+          {stages.map((stage) => (
+            <div class="ripening-frame" data-ripening-frame>
+              <Image src={stage.image} alt="" widths={[320, 640, 960]} sizes="(max-width: 700px) 90vw, 50vw" format="webp" quality={82} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </figure>
+    </div>
+    <div class="ripening-progress" aria-hidden="true"><span data-ripening-progress></span></div>
+    <ol class="ripening-stages">
+      {stages.map((stage, index) => (
+        <li data-ripening-stage style={`--stage-colour: ${stage.colour}`}>
+          <span class="ripening-stage-number micro">0{index + 1}</span>
+          <strong><span class="ripening-stage-dot" aria-hidden="true"></span>{stage.name}</strong>
+          <p>{stage.copy}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="ripening-bottom">
+      <p>{t('ripeningNote')}</p>
+      <a href="https://horticulture.ucdavis.edu/information/tomato-maturity-indices-and-quality" target="_blank" rel="noopener noreferrer">{t('ripeningSource')} <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</section>

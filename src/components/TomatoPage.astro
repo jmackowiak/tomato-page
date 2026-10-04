@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import whole from '../assets/tomato-whole.png';
 import TomatoCrossSection from '../components/TomatoCrossSection.astro';
+import TomatoRipening from './TomatoRipening.astro';
 import varieties from '../assets/tomato-varieties.png';
 import '@fontsource/anton/latin-400.css';
 import '@fontsource/anton/latin-ext-400.css';
@@ -42,8 +43,9 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
       <a class="wordmark" href="#poczatek" aria-label={t('homeLabel')}>{t('heroTitle').toLowerCase()}<span>.</span></a>
       <nav aria-label={t('chapters')}>
         <a href="#kolor">{t('colour')}<span>01</span></a>
-        <a href="#wnetrze">{t('inside')}<span>02</span></a>
-        <a href="#roznorodnosc">{t('variety')}<span>03</span></a>
+        <a href="#dojrzewanie">{t('ripening')}<span>02</span></a>
+        <a href="#wnetrze">{t('inside')}<span>03</span></a>
+        <a href="#roznorodnosc">{t('variety')}<span>04</span></a>
       </nav>
       <div class="header-controls">
         <LanguageSwitcher locale={locale} />
@@ -66,10 +68,12 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
           <span class="hero-description">{t('heroDescription1')}<br />{t('heroDescription2')}</span>
         </div>
         <div class="hero-bottom">
-          <a class="scroll-cue" href="#wnetrze"><span class="micro">{t('scroll')}</span><svg width="24" height="43" viewBox="0 0 24 43" fill="none" aria-hidden="true"><path d="M12 0v40M2 30l10 10 10-10" stroke="currentColor" stroke-width="1.5" /></svg></a>
+          <a class="scroll-cue" href="#dojrzewanie"><span class="micro">{t('scroll')}</span><svg width="24" height="43" viewBox="0 0 24 43" fill="none" aria-hidden="true"><path d="M12 0v40M2 30l10 10 10-10" stroke="currentColor" stroke-width="1.5" /></svg></a>
           <span class="chapter-index micro"><span class="index-dot" aria-hidden="true"></span>{t('colourIndex')}</span>
         </div>
       </section>
+
+      <TomatoRipening locale={locale} />
 
       <TomatoCrossSection locale={locale} />
 
@@ -131,7 +135,7 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
       <details class="credits">
         <summary>{t('credits')} <span aria-hidden="true">+</span></summary>
         <div class="credits-content">
-          <p>{t('facts')} <a href="https://www.kew.org/plants/tomato" target="_blank" rel="noopener noreferrer">Royal Botanic Gardens, Kew</a>, <a href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">Virginia Tech</a>{t('and')}<a href="https://www.rhs.org.uk/plants/293883/solanum-lycopersicum-green-zebra/details" target="_blank" rel="noopener noreferrer">Royal Horticultural Society</a>.</p>
+          <p>{t('facts')} <a href="https://www.kew.org/plants/tomato" target="_blank" rel="noopener noreferrer">Royal Botanic Gardens, Kew</a>, <a href="https://www.pubs.ext.vt.edu/SPES/spes-508/spes-508.html" target="_blank" rel="noopener noreferrer">Virginia Tech</a>, <a href="https://www.rhs.org.uk/plants/293883/solanum-lycopersicum-green-zebra/details" target="_blank" rel="noopener noreferrer">Royal Horticultural Society</a>{t('and')}<a href="https://horticulture.ucdavis.edu/information/tomato-maturity-indices-and-quality" target="_blank" rel="noopener noreferrer">UC Davis</a>.</p>
           <p>{t('imageCredit')}</p>
           <p>{t('soundCredit')} <a href="https://freesound.org/people/SpliceSound/sounds/188192/" target="_blank" rel="noopener noreferrer">{t('cutCredit')}</a>{t('and')}<a href="https://freesound.org/people/giddster/sounds/437356/" target="_blank" rel="noopener noreferrer">{t('leavesCredit')}</a>.</p>
         </div>

@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function createMotion(): () => void {
   const media = gsap.matchMedia();
-  media.add({ desktop: '(min-width: 701px)', mobile: '(max-width: 700px)' }, (context) => {
+  media.add({ desktop: '(min-width: 701px)', mobile: '(max-width: 700px)', tall: '(min-height: 720px)' }, (context) => {
     const desktop = Boolean(context.conditions?.desktop);
 
     gsap.from('.hero-title', { y: 24, duration: .9, ease: 'power3.out' });
@@ -16,6 +16,39 @@ export function createMotion(): () => void {
       y: desktop ? 85 : 30, rotation: desktop ? 5 : 2, ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1 },
     });
+
+    const ripening = document.querySelector<HTMLElement>('[data-ripening]');
+    const scene = ripening?.querySelector<HTMLElement>('[data-ripening-scene]');
+    const frames = ripening ? [...ripening.querySelectorAll<HTMLElement>('[data-ripening-frame]')] : [];
+    const stages = ripening ? [...ripening.querySelectorAll<HTMLElement>('[data-ripening-stage]')] : [];
+    const dots = stages.map((stage) => stage.querySelector('.ripening-stage-dot'));
+    if (ripening && scene && frames.length === 3 && stages.length === 3) {
+      ripening.dataset.ripeningAnimated = 'true';
+      // The default layout shows all three illustrations without animation.
+      const pin = desktop && Boolean(context.conditions?.tall) && scene.offsetHeight <= window.innerHeight - 16;
+      gsap.set(frames, { autoAlpha: 0 });
+      gsap.set(frames[0], { autoAlpha: 1 });
+      gsap.set(dots, { opacity: .4, scale: 1 });
+      gsap.set(dots[0], { opacity: 1, scale: 1.6 });
+      const timeline = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          id: 'tomato-ripening', trigger: scene,
+          start: pin ? 'top top' : desktop ? 'top 65%' : 'top 30%',
+          end: pin ? () => `+=${Math.round(window.innerHeight * 1.4)}` : desktop ? 'bottom 25%' : 'center 20%',
+          pin, scrub: .5, invalidateOnRefresh: true,
+        },
+      });
+      timeline
+        .fromTo(ripening.querySelector('[data-ripening-progress]'), { scaleX: 0 }, { scaleX: 1, duration: 2 }, 0)
+        .fromTo(ripening.querySelector('[data-ripening-images]'), { rotation: -4, scale: .97 }, { rotation: 4, scale: 1.025, duration: 2 }, 0)
+        .to(frames[1], { autoAlpha: 1, duration: .35 }, .2)
+        .to(dots[0], { opacity: .4, scale: 1, duration: .25 }, .2)
+        .to(dots[1], { opacity: 1, scale: 1.6, duration: .25 }, .2)
+        .to(frames[2], { autoAlpha: 1, duration: .35 }, 1.15)
+        .to(dots[1], { opacity: .4, scale: 1, duration: .25 }, 1.15)
+        .to(dots[2], { opacity: 1, scale: 1.6, duration: .25 }, 1.15);
+    }
 
     gsap.from('.slice-illustration', {
       rotation: desktop ? -10 : -5, scale: .94, y: desktop ? 40 : 15, ease: 'none',
@@ -36,6 +69,7 @@ export function createMotion(): () => void {
 
     const float = gsap.getTweensOf('.hero-float');
     ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { float.forEach((tween) => self.isActive ? tween.resume() : tween.pause()); } });
+    return () => { if (ripening) delete ripening.dataset.ripeningAnimated; };
   });
 
   const refresh = () => ScrollTrigger.refresh();

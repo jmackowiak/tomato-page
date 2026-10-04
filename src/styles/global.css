@@ -72,6 +72,27 @@
   .scroll-cue svg { transition: transform .3s; }
   .scroll-cue:hover svg { transform: translateY(5px); }
   .chapter-index { display: flex; gap: 10px; align-items: center; }
+  .ripening { padding: 38px var(--gutter) 50px; }
+  .ripening-scene { padding-block: 18px; }
+  .ripening-layout { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 30px; min-height: 340px; }
+  .ripening-title { font-size: clamp(44px, 5.8vw, 100px); line-height: 1.01; }
+  .ripening-copy .section-copy { margin-top: 26px; max-width: 310px; }
+  .ripening-art { width: 100%; max-width: 680px; justify-self: end; }
+  .ripening-images { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 10px; }
+  .ripening-frame img { display: block; width: 100%; }
+  .ripening[data-ripening-animated='true'] .ripening-art { width: min(100%, 58svh, 640px); }
+  .ripening[data-ripening-animated='true'] .ripening-images { display: block; position: relative; aspect-ratio: 1; }
+  .ripening[data-ripening-animated='true'] .ripening-frame { position: absolute; inset: 0; }
+  .ripening-progress { height: 1px; margin-top: 18px; background: #fff1cf35; }
+  .ripening-progress > span { display: block; height: 100%; background: var(--cream); transform-origin: left; }
+  .ripening-stages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; list-style: none; padding: 0; margin: 18px 0 0; }
+  .ripening-stage-number { display: block; font-size: 9px; margin-bottom: 5px; }
+  .ripening-stages strong { display: flex; align-items: center; gap: 8px; font-size: 16px; font-weight: 500; }
+  .ripening-stage-dot { width: 7px; height: 7px; flex-shrink: 0; border-radius: 50%; background: var(--stage-colour); }
+  .ripening-stages p { font-size: 12px; line-height: 1.6; margin-top: 6px; }
+  .ripening-bottom { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-top: 25px; font-size: 10px; line-height: 1.7; }
+  .ripening-bottom p { max-width: 550px; }
+  .ripening-bottom a { white-space: nowrap; text-decoration: underline; text-underline-offset: 4px; padding-block: 8px; }
   .inside { background: var(--deep); position: relative; overflow: clip; padding: 42px var(--gutter) 30px; }
   .inside-layout { display: grid; grid-template-columns: .85fr 1.25fr; align-items: center; min-height: 620px; gap: 30px; }
   .inside-copy { position: relative; z-index: 2; padding-bottom: 30px; }
@@ -159,8 +180,8 @@
     :root { --gutter: 22px; }
     .site-header { display: grid; grid-template-columns: 1fr auto; padding-block: 20px 10px; row-gap: 15px; column-gap: 8px; }
     .site-header .wordmark { font-size: 35px; }
-    .site-header nav { grid-row: 2; grid-column: 1 / -1; justify-content: space-between; width: 100%; padding-top: 8px; border-top: 1px solid #fff1cf30; gap: 14px; }
-    .site-header nav a { font-size: 12px; }
+    .site-header nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-row: 2; grid-column: 1 / -1; width: 100%; padding-top: 8px; border-top: 1px solid #fff1cf30; gap: 0 24px; }
+    .site-header nav a { font-size: 12px; justify-content: space-between; }
     .header-controls { grid-column: 2; grid-row: 1; }
     .hero { height: auto; min-height: 730px; padding-top: 8px; }
     .hero-topline { font-size: 8px; gap: 20px; padding-top: 0; }
@@ -177,6 +198,18 @@
     .scroll-cue { gap: 12px; }
     .scroll-cue svg { height: 32px; }
     .hero-shadow { filter: blur(12px); }
+    .ripening { padding-block: 24px 35px; }
+    .ripening-scene { padding-block: 8px; }
+    .ripening-layout { display: block; min-height: 0; }
+    .ripening .ripening-title { font-size: clamp(44px, 8vw, 60px); }
+    .ripening-copy .section-copy { margin-top: 18px; }
+    .ripening-art, .ripening[data-ripening-animated='true'] .ripening-art { width: 100%; max-width: 380px; margin: 24px auto; }
+    .ripening-stages { gap: 12px; margin-top: 14px; }
+    .ripening-stages strong { display: block; font-size: 11px; line-height: 1.5; }
+    .ripening-stage-dot { display: inline-block; margin-right: 5px; width: 5px; height: 5px; vertical-align: middle; }
+    .ripening-stages p { font-size: 10px; }
+    .ripening-bottom { display: block; margin-top: 22px; font-size: 9px; }
+    .ripening-bottom a { display: inline-block; margin-top: 3px; }
     .inside { padding-top: 30px; }
     .section-label { font-size: 8px; gap: 15px; padding-top: 15px; padding-bottom: 30px; }
     .section-label > span:last-child { text-align: right; }
