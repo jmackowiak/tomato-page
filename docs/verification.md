@@ -19,7 +19,7 @@
 ## Rozmiary skryptów produkcyjnych
 
 - Kontroler: 2644 B, 1283 B po gzip.
-- Interaktywny przekrój, skrypt w HTML: 2119 B, 1054 B po gzip.
+- Interaktywny przekrój, skrypt w HTML: 2652 B, 1245 B po gzip.
 - Osobno ładowany moduł GSAP/ScrollTrigger i animacji: 114587 B, 44569 B po gzip.
 
 Są to rozmiary plików, a nie wynik audytu Lighthouse czy pomiar wydajności na rzeczywistym telefonie.
@@ -27,6 +27,9 @@ Są to rozmiary plików, a nie wynik audytu Lighthouse czy pomiar wydajności na
 ## Interaktywny przekrój i stopka
 
 - Cztery punkty poprawnie zmieniają tytuł i opis; zawsze jeden ma `aria-pressed="true"`.
+- Po kliknięciu pierścień przy punkcie i ruch przekroju trwają 650 ms, wejście zmienionego opisu 280 ms. Ponowne kliknięcie tego samego punktu odtwarza efekt. Osobny element dla reakcji na kliknięcie oddziela ją od transformacji ScrollTrigger.
+- Sprawdzono 20 szybkich kliknięć: pozostają najwyżej trzy animacje reakcji, poprzednie są anulowane. Po zakończeniu transformacja wraca do `none`, a pierścienie mają przezroczystość `0`.
+- Wyłączenie ruchu przerywa trwające efekty. Zasymulowane ograniczenie ruchu blokuje też nowe animacje pierścienia i przekroju. Przy 320 px efekt nie powoduje poziomego przewijania.
 - Sprawdzono aktywację klawiaturą przez Enter i Spację. Fokus pozostaje na przycisku, a aktualizacja opisu trafia do regionu `aria-live`.
 - Przy 320, 390, 768, 1280 i 1920 px dokument nie ma poziomego przewijania. Na telefonie panel znajduje się pod ilustracją.
 - Wysokość panelu nie zmienia się między opisami: około 249 px przy 320 i 1280 px, około 299 px przy 768 px. Treść mieści się także przy 320 px.

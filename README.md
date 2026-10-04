@@ -27,6 +27,7 @@ Wynik produkcyjny jest w `dist/`, gotowy do hostingu statycznego. Astro 7 urucha
 
 - Ruch zdjęć związany z przewijaniem, krótkie wejścia typografii i przesuwający się pasek.
 - Interaktywny przekrój z czterema punktami: skórka, miąższ, komora nasienna i nasiona. Przyciski działają myszą, dotykiem i klawiaturą; bez JavaScriptu opisy są dostępne w rozwijanej liście.
+- Kliknięcie punktu uruchamia rozchodzący się pierścień i krótki ruch przekroju; kolejne kliknięcie zastępuje poprzednią animację.
 - Przycisk ruchu zapamiętuje wybór w przeglądarce.
 - `prefers-reduced-motion` wyłącza animacje i płynne przewijanie.
 - Bez JavaScriptu treść, zdjęcia, nawigacja i źródła pozostają dostępne.

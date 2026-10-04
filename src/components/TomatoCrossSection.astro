@@ -29,14 +29,17 @@ const first = tomatoAnatomy[0];
     <figure class="slice-stage" aria-label="Przekrój pomidora">
       <span class="slice-orbit" aria-hidden="true"></span>
       <div class="slice-illustration">
-        <Image class="slice-image" src={slice} alt="Ilustracja przekroju pomidora: skórka na obwodzie, miąższ pomiędzy komorami, nasiona otoczone żelem" widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
-        <div class="slice-points" role="group" aria-label="Wybierz część pomidora, aby poznać jej opis" hidden data-slice-points>
-          {tomatoAnatomy.map((part, index) => (
-            <button class="slice-pin" type="button" style={`--pin-x: ${part.x}%; --pin-y: ${part.y}%;`} aria-label={`${part.number}. ${part.name} — pokaż opis`} aria-pressed={index === 0 ? 'true' : 'false'} aria-controls="slice-detail" data-slice-part={part.id}>
-              <span class="slice-pin-number">{part.number}</span>
-              <span class="slice-pin-label" aria-hidden="true">{part.name}</span>
-            </button>
-          ))}
+        <div class="slice-response" data-slice-response>
+          <Image class="slice-image" src={slice} alt="Ilustracja przekroju pomidora: skórka na obwodzie, miąższ pomiędzy komorami, nasiona otoczone żelem" widths={[480, 800, 1200]} sizes="(max-width: 700px) 95vw, 58vw" format="webp" quality={83} loading="lazy" />
+          <div class="slice-points" role="group" aria-label="Wybierz część pomidora, aby poznać jej opis" hidden data-slice-points>
+            {tomatoAnatomy.map((part, index) => (
+              <button class="slice-pin" type="button" style={`--pin-x: ${part.x}%; --pin-y: ${part.y}%;`} aria-label={`${part.number}. ${part.name} — pokaż opis`} aria-pressed={index === 0 ? 'true' : 'false'} aria-controls="slice-detail" data-slice-part={part.id}>
+                <span class="slice-pin-halo" aria-hidden="true"></span>
+                <span class="slice-pin-number">{part.number}</span>
+                <span class="slice-pin-label" aria-hidden="true">{part.name}</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
       <figcaption class="slice-caption"><span class="caption-dot" aria-hidden="true"></span><span data-slice-hint>Mały świat pod skórką</span></figcaption>
