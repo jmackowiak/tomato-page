@@ -45,25 +45,9 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         <a href="#wnetrze">{t('inside')}<span>02</span></a>
         <a href="#roznorodnosc">{t('variety')}<span>03</span></a>
       </nav>
-      <div class="experience-controls">
+      <div class="header-controls">
         <LanguageSwitcher locale={locale} />
-        <button class="motion-toggle" type="button" aria-pressed="true" aria-label={`${t('motionOn')}. ${t('motionDisable')}`} hidden>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <g data-motion-on fill="currentColor" stroke="none"><rect x="7" y="5" width="3" height="14" rx=".75" /><rect x="14" y="5" width="3" height="14" rx=".75" /></g>
-            <path data-motion-off d="m8 5 11 7-11 7V5Z" />
-          </svg>
-          <span class="visually-hidden" data-motion-label>{t('motionOn')}</span>
-        </button>
-        <button class="sound-toggle" type="button" aria-pressed="false" aria-label={`${t('soundOff')}. ${t('soundEnable')}`} hidden>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <path d="M11 5 6 9H3v6h3l5 4V5Z" />
-            <path data-sound-off d="m16 9 5 6m0-6-5 6" />
-            <path data-sound-on d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" />
-          </svg>
-          <span class="visually-hidden" data-sound-label>{t('soundOff')}</span>
-        </button>
       </div>
-      <p class="visually-hidden" role="status" aria-live="polite" data-sound-status></p>
     </header>
 
     <main id="opowiesc">
@@ -120,12 +104,30 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         <a class="wordmark" href="#poczatek" aria-label={t('backLabel')}>{t('heroTitle').toLowerCase()}.</a>
         <span class="micro">{t('redLove')}</span>
         <span class="micro">{t('smallStory')}</span>
-        <a class="author-link" href="https://github.com/jmackowiak" target="_blank" rel="noopener noreferrer" aria-label={t('githubLabel')}>
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false">
-            <path d="M12 .297C5.37.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.93 0-1.31.467-2.38 1.236-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.22 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
-          </svg>
-        </a>
+        <div class="experience-controls">
+          <button class="motion-toggle" type="button" aria-pressed="true" aria-label={`${t('motionOn')}. ${t('motionDisable')}`} hidden>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <g data-motion-on fill="currentColor" stroke="none"><rect x="7" y="5" width="3" height="14" rx=".75" /><rect x="14" y="5" width="3" height="14" rx=".75" /></g>
+              <path data-motion-off d="m8 5 11 7-11 7V5Z" />
+            </svg>
+            <span class="visually-hidden" data-motion-label>{t('motionOn')}</span>
+          </button>
+          <button class="sound-toggle" type="button" aria-pressed="false" aria-label={`${t('soundOff')}. ${t('soundEnable')}`} hidden>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+              <path d="M11 5 6 9H3v6h3l5 4V5Z" />
+              <path data-sound-off d="m16 9 5 6m0-6-5 6" />
+              <path data-sound-on d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14" />
+            </svg>
+            <span class="visually-hidden" data-sound-label>{t('soundOff')}</span>
+          </button>
+          <a class="author-link" href="https://github.com/jmackowiak" target="_blank" rel="noopener noreferrer" aria-label={t('githubLabel')}>
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" focusable="false">
+              <path d="M12 .297C5.37.297 0 5.67 0 12.297c0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.043-1.61-4.043-1.61-.546-1.387-1.333-1.756-1.333-1.756-1.09-.745.083-.729.083-.729 1.205.084 1.838 1.237 1.838 1.237 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.3-5.467-1.334-5.467-5.93 0-1.31.467-2.38 1.236-3.22-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23a11.52 11.52 0 0 1 3.003-.404c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.652.242 2.873.118 3.176.77.84 1.235 1.91 1.235 3.22 0 4.609-2.807 5.625-5.479 5.922.43.372.823 1.102.823 2.222 0 1.606-.015 2.896-.015 3.286 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+            </svg>
+          </a>
+        </div>
       </div>
+      <p class="visually-hidden" role="status" aria-live="polite" data-sound-status></p>
       <details class="credits">
         <summary>{t('credits')} <span aria-hidden="true">+</span></summary>
         <div class="credits-content">
