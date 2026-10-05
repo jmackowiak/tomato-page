@@ -5,7 +5,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function createMotion(): () => void {
   const media = gsap.matchMedia();
-  media.add({ desktop: '(min-width: 701px)', mobile: '(max-width: 700px)', tall: '(min-height: 720px)', finePointer: '(hover: hover) and (pointer: fine)' }, (context) => {
+  media.add({ desktop: '(min-width: 701px)', mobile: '(max-width: 700px)', tall: '(min-height: 720px)' }, (context) => {
     const desktop = Boolean(context.conditions?.desktop);
 
     gsap.from('.hero-title', { y: 24, duration: .9, ease: 'power3.out' });
@@ -70,36 +70,6 @@ export function createMotion(): () => void {
       scrollTrigger: { trigger: '.variety-stage', start: 'top 95%', end: 'bottom 40%', scrub: 1 },
     });
 
-    const sandwichStage = document.querySelector<HTMLElement>('.sandwich-stage');
-    let cleanupSandwichPointer = () => {};
-    if (sandwichStage) {
-      gsap.timeline({
-        defaults: { duration: .6, ease: 'power2.out' },
-        scrollTrigger: { trigger: sandwichStage, start: 'top 75%', end: 'center 45%', scrub: .6, invalidateOnRefresh: true },
-      })
-        .from('[data-sandwich-layer="bread"]', { autoAlpha: 0, y: 70, scale: .94, rotation: -3 }, 0)
-        .from('[data-sandwich-layer="cheese"]', { autoAlpha: 0, y: -95, rotation: -7 }, .35)
-        .from('[data-sandwich-layer="tomato"]', { autoAlpha: 0, y: -160, rotation: 5 }, .7);
-      const pointer = sandwichStage.querySelector<HTMLElement>('.sandwich-pointer');
-      if (desktop && context.conditions?.finePointer && pointer) {
-        const moveX = gsap.quickTo(pointer, 'x', { duration: .6, ease: 'power3.out' });
-        const moveY = gsap.quickTo(pointer, 'y', { duration: .6, ease: 'power3.out' });
-        const move = (event: PointerEvent) => {
-          if (event.pointerType !== 'mouse') return;
-          const rect = sandwichStage.getBoundingClientRect();
-          moveX(gsap.utils.clamp(-12, 12, ((event.clientX - rect.left) / rect.width - .5) * 24));
-          moveY(gsap.utils.clamp(-8, 8, ((event.clientY - rect.top) / rect.height - .5) * 16));
-        };
-        const reset = () => { moveX(0); moveY(0); };
-        sandwichStage.addEventListener('pointermove', move);
-        sandwichStage.addEventListener('pointerleave', reset);
-        cleanupSandwichPointer = () => {
-          sandwichStage.removeEventListener('pointermove', move);
-          sandwichStage.removeEventListener('pointerleave', reset);
-        };
-      }
-    }
-
     for (const element of gsap.utils.toArray<HTMLElement>('[data-reveal]')) {
       gsap.from(element, { y: desktop ? 28 : 16, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 93%', once: true } });
     }
@@ -110,7 +80,6 @@ export function createMotion(): () => void {
     const float = gsap.getTweensOf('.hero-float');
     ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { float.forEach((tween) => self.isActive ? tween.resume() : tween.pause()); } });
     return () => {
-      cleanupSandwichPointer();
       if (ripening) {
         delete ripening.dataset.ripeningAnimated;
         delete ripening.dataset.ripeningPinned;
