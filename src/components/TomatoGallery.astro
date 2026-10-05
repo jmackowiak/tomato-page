@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import round from '../assets/tomato-round.png';
+import plum from '../assets/tomato-plum.png';
+import ribbed from '../assets/tomato-whole.png';
+import { translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const shapes = [
+  { id: 'round', image: round, name: 'galleryRound', copy: 'galleryRoundCopy', alt: 'galleryRoundAlt' },
+  { id: 'plum', image: plum, name: 'galleryPlum', copy: 'galleryPlumCopy', alt: 'galleryPlumAlt' },
+  { id: 'ribbed', image: ribbed, name: 'galleryRibbed', copy: 'galleryRibbedCopy', alt: 'galleryRibbedAlt' },
+] as const;
+---
+<section class="variety" id="roznorodnosc" aria-labelledby="variety-title" data-gallery data-gallery-selected="0" data-selected-label={t('gallerySelected')}>
+  <div class="section-label micro"><span>{t('varietyIndex')}</span><span>{t('individual')}</span></div>
+  <div class="variety-heading">
+    <h2 id="variety-title" class="serif-title" data-reveal>{t('varietyLine1')}<br /><em>{t('varietyLine2')}</em></h2>
+    <p class="section-copy" data-reveal>{t('varietyCopy')}</p>
+  </div>
+  <div class="gallery-controls" data-gallery-controls hidden>
+    <p class="micro">{t('galleryHint')}</p>
+    <div class="gallery-tabs" role="tablist" aria-label={t('galleryLabel')}>
+      {shapes.map((shape, index) => (
+        <button class="gallery-tab" id={`gallery-tab-${shape.id}`} type="button" role="tab" aria-controls={`gallery-panel-${shape.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-gallery-tab>
+          <span class="micro" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <span data-gallery-name>{t(shape.name)}</span>
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" stroke-width="1.2" /></svg>
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="gallery-panels">
+    <span class="gallery-word" data-gallery-word aria-hidden="true" hidden>{t('galleryRound')}</span>
+    {shapes.map((shape, index) => (
+      <figure class="gallery-item" id={`gallery-panel-${shape.id}`} data-gallery-item data-gallery-slot={index === 0 ? 'center' : index === 1 ? 'right' : 'left'}>
+        <div class="gallery-portrait" data-gallery-portrait>
+          <Image src={shape.image} alt={t(shape.alt)} widths={[320, 600, 900]} sizes="(max-width: 700px) 82vw, (max-width: 1250px) 48vw, 600px" format="webp" quality={82} loading="lazy" />
+        </div>
+        <figcaption class="gallery-caption" data-gallery-caption>
+          <h3>{t(shape.name)}<span aria-hidden="true">.</span></h3>
+          <p>{t(shape.copy)}</p>
+        </figcaption>
+      </figure>
+    ))}
+  </div>
+  <div class="gallery-bottom">
+    <p class="micro">{t('galleryNote')}</p>
+    <span class="gallery-counter micro" data-gallery-counter aria-hidden="true" hidden>01 / 03</span>
+  </div>
+  <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true" data-gallery-status></p>
+  <div class="variety-note"><span class="micro">{t('know')}</span><p>{t('greenFact')}</p></div>
+</section>
+<script>
+  import '../scripts/gallery';
+</script>

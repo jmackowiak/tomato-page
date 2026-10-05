@@ -1,5 +1,6 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { createGalleryMotion } from './gallery-motion';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -117,10 +118,7 @@ export function createMotion(): () => void {
     });
     gsap.from('.identity-underline', { scaleX: 0, duration: .65, ease: 'power2.out', scrollTrigger: { trigger: '.identity-item:last-child', start: 'top 70%', once: true } });
 
-    gsap.from('.variety-image', {
-      y: desktop ? 75 : 25, rotation: -3, ease: 'none',
-      scrollTrigger: { trigger: '.variety-stage', start: 'top 95%', end: 'bottom 40%', scrub: 1 },
-    });
+    const cleanupGallery = createGalleryMotion(context, desktop);
 
     for (const element of gsap.utils.toArray<HTMLElement>('[data-reveal]')) {
       gsap.from(element, { y: desktop ? 28 : 16, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 93%', once: true } });
@@ -131,6 +129,7 @@ export function createMotion(): () => void {
     const float = gsap.getTweensOf('.hero-float');
     ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { float.forEach((tween) => self.isActive ? tween.resume() : tween.pause()); } });
     return () => {
+      cleanupGallery();
       cleanupTicker();
       if (ripening) {
         delete ripening.dataset.ripeningAnimated;

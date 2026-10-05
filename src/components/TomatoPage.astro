@@ -4,7 +4,7 @@ import whole from '../assets/tomato-whole.png';
 import TomatoCrossSection from '../components/TomatoCrossSection.astro';
 import TomatoRipening from './TomatoRipening.astro';
 import TomatoIdentity from './TomatoIdentity.astro';
-import varieties from '../assets/tomato-varieties.png';
+import TomatoGallery from './TomatoGallery.astro';
 import '@fontsource/anton/latin-400.css';
 import '@fontsource/anton/latin-ext-400.css';
 import '@fontsource/instrument-serif/latin-400.css';
@@ -85,19 +85,7 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         <div class="ticker-track"><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span></div>
       </div>
 
-      <section class="variety" id="roznorodnosc" aria-labelledby="variety-title">
-        <div class="section-label micro"><span>{t('varietyIndex')}</span><span>{t('individual')}</span></div>
-        <div class="variety-heading">
-          <h2 id="variety-title" class="serif-title" data-reveal>{t('varietyLine1')}<br /><em>{t('varietyLine2')}</em></h2>
-          <p class="section-copy" data-reveal>{t('varietyCopy')}</p>
-        </div>
-        <figure class="variety-stage">
-          <span class="variety-background-word" aria-hidden="true">{t('different')}</span>
-          <Image class="variety-image" src={varieties} alt={t('varietyAlt')} widths={[600, 1000, 1600]} sizes="(max-width: 700px) 100vw, 85vw" format="webp" quality={82} loading="lazy" />
-          <figcaption class="micro">{t('varietyCaption')}</figcaption>
-        </figure>
-        <div class="variety-note"><span class="micro">{t('know')}</span><p>{t('greenFact')}</p></div>
-      </section>
+      <TomatoGallery locale={locale} />
 
       <section class="finale" aria-labelledby="finale-title">
         <span class="micro" data-reveal>{t('finaleEyebrow')}</span>
