@@ -1,0 +1,29 @@
+---
+import { translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const identities = [
+  { context: t('identityKitchen'), name: t('identityVegetable'), copy: t('identityVegetableCopy') },
+  { context: t('identityBotany'), name: t('identityFruit'), copy: t('identityFruitCopy') },
+  { context: t('identityPrecisely'), name: t('identityBerry'), copy: t('identityBerryCopy') },
+];
+---
+<section class="identity" id="jagoda" aria-labelledby="identity-title">
+  <div class="section-label micro"><span>{t('identityIndex')}</span><span>{t('identityEyebrow')}</span></div>
+  <h2 class="serif-title identity-title" id="identity-title" data-reveal>{t('identityLine1')}<br /><em>{t('identityLine2')}</em></h2>
+  <ol class="identity-terms">
+    {identities.map((identity, index) => (
+      <li class="identity-item">
+        <span class="micro identity-context"><span aria-hidden="true">0{index + 1}</span>{identity.context}</span>
+        <h3 class="identity-word">{identity.name}<span aria-hidden="true">.</span></h3>
+        {index === 2 && <span class="identity-underline" aria-hidden="true"></span>}
+        <p>{identity.copy}</p>
+      </li>
+    ))}
+  </ol>
+  <div class="identity-bottom">
+    <p>{t('identityNote')}</p>
+    <a href="https://inspection.canada.ca/en/plant-health/plant-varieties/novel-traits/applicants/directive-94-08/biology-documents/solanum-lycopersicum#s2-6" target="_blank" rel="noopener noreferrer">{t('identitySource')} <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

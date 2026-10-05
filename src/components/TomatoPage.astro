@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import whole from '../assets/tomato-whole.png';
 import TomatoCrossSection from '../components/TomatoCrossSection.astro';
 import TomatoRipening from './TomatoRipening.astro';
+import TomatoIdentity from './TomatoIdentity.astro';
 import varieties from '../assets/tomato-varieties.png';
 import '@fontsource/anton/latin-400.css';
 import '@fontsource/anton/latin-ext-400.css';
@@ -45,7 +46,8 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         <a href="#kolor">{t('colour')}<span>01</span></a>
         <a href="#dojrzewanie">{t('ripening')}<span>02</span></a>
         <a href="#wnetrze">{t('inside')}<span>03</span></a>
-        <a href="#roznorodnosc">{t('variety')}<span>04</span></a>
+        <a href="#jagoda">{t('identity')}<span>04</span></a>
+        <a href="#roznorodnosc">{t('variety')}<span>05</span></a>
       </nav>
       <div class="header-controls">
         <LanguageSwitcher locale={locale} />
@@ -76,6 +78,8 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
       <TomatoRipening locale={locale} />
 
       <TomatoCrossSection locale={locale} />
+
+      <TomatoIdentity locale={locale} />
 
       <div class="ticker" aria-hidden="true">
         <div class="ticker-track"><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span><span>{t('ticker')}<i>{t('tickerEmphasis')}</i>&nbsp;</span></div>

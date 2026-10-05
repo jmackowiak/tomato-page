@@ -60,6 +60,11 @@ export function createMotion(): () => void {
       scrollTrigger: { trigger: '.inside', start: 'top 80%', end: 'bottom 80%', scrub: 1 },
     });
 
+    document.querySelectorAll<HTMLElement>('.identity-item').forEach((item, index) => {
+      gsap.from(item, { autoAlpha: 0, y: desktop ? 32 : 18, duration: .7, delay: desktop ? index * .12 : 0, ease: 'power3.out', scrollTrigger: { trigger: item, start: 'top 88%', once: true } });
+    });
+    gsap.from('.identity-underline', { scaleX: 0, duration: .65, ease: 'power2.out', scrollTrigger: { trigger: '.identity-item:last-child', start: 'top 70%', once: true } });
+
     gsap.from('.variety-image', {
       y: desktop ? 75 : 25, rotation: -3, ease: 'none',
       scrollTrigger: { trigger: '.variety-stage', start: 'top 95%', end: 'bottom 40%', scrub: 1 },

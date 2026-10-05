@@ -38,6 +38,7 @@ Wynik produkcyjny jest w `dist/`, gotowy do hostingu statycznego. Astro 7 urucha
 - Ruch zdjęć związany z przewijaniem, krótkie wejścia typografii i przesuwający się pasek.
 - Scena dojrzewania między otwarciem a przekrojem: zielony → pomarańczowy → czerwony, sterowana przewijaniem. Na desktopie wypełnia wysokość okna i zatrzymuje się, z paskiem etapów u dołu, gdy cała treść mieści się na ekranie; na telefonie podąża za zwykłym przewijaniem. Przy wyłączonym ruchu i bez JavaScriptu pokazuje obok siebie wszystkie trzy ilustracje. To uproszczenie dla odmian dojrzewających na czerwono.
 - Interaktywny przekrój z czterema punktami: skórka, miąższ, komora nasienna i nasiona. Przyciski działają myszą, dotykiem i klawiaturą; bez JavaScriptu opisy są dostępne w rozwijanej liście.
+- Typograficzna sekcja po przekroju: warzywo w kuchni, owoc w botanice, dokładniej jagoda. Trzy określenia pojawiają się podczas przewijania; jagoda ma animowane podkreślenie. Treść i źródło botaniczne są dostępne także bez JavaScriptu i przy wyłączonym ruchu, w PL/EN/IT.
 - Kliknięcie punktu uruchamia rozchodzący się pierścień i krótki ruch przekroju; kolejne kliknięcie zastępuje poprzednią animację.
 - Opcjonalne nagrania krojenia pomidora i szelestu liści. Dźwięk jest wyłączony przy otwieraniu strony, ma własny przycisk i działa niezależnie od animacji. Lokalne pliki audio pobierają się dopiero po jego włączeniu.
 - Przycisk ruchu zapamiętuje wybór w przeglądarce.
