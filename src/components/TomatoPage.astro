@@ -4,6 +4,7 @@ import whole from '../assets/tomato-whole.png';
 import TomatoCrossSection from '../components/TomatoCrossSection.astro';
 import TomatoRipening from './TomatoRipening.astro';
 import TomatoIdentity from './TomatoIdentity.astro';
+import TomatoFavourites from './TomatoFavourites.astro';
 import varieties from '../assets/tomato-varieties.png';
 import '@fontsource/anton/latin-400.css';
 import '@fontsource/anton/latin-ext-400.css';
@@ -48,6 +49,7 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         <a href="#wnetrze">{t('inside')}<span>03</span></a>
         <a href="#jagoda">{t('identity')}<span>04</span></a>
         <a href="#roznorodnosc">{t('variety')}<span>05</span></a>
+        <a href="#ulubione">{t('favourites')}<span>06</span></a>
       </nav>
       <div class="header-controls">
         <LanguageSwitcher locale={locale} />
@@ -98,6 +100,8 @@ const ui = Object.fromEntries(uiKeys.map((key) => [key, t(key)]));
         </figure>
         <div class="variety-note"><span class="micro">{t('know')}</span><p>{t('greenFact')}</p></div>
       </section>
+
+      <TomatoFavourites locale={locale} />
 
       <section class="finale" aria-labelledby="finale-title">
         <span class="micro" data-reveal>{t('finaleEyebrow')}</span>

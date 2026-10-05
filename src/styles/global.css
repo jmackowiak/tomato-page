@@ -157,6 +157,30 @@
   .variety-stage figcaption { text-align: center; padding-top: 8px; }
   .variety-note { display: flex; gap: 60px; justify-content: space-between; border-top: 1px solid #fff1cf45; padding-top: 25px; margin-top: 65px; }
   .variety-note p { max-width: 550px; font-family: 'Instrument Serif', Georgia, serif; font-size: 30px; line-height: 1.2; }
+  .favourites { --sand: #f3dfae; background: var(--sand); color: var(--ink); padding: 38px var(--gutter) 35px; overflow: clip; }
+  .favourites .section-label { border-color: #69101735; }
+  .favourites-layout { display: grid; grid-template-columns: .85fr 1.15fr; align-items: center; gap: 20px; }
+  .favourites-copy { position: relative; z-index: 1; padding-block: 30px; }
+  .favourites-edition { display: block; color: var(--red); margin-bottom: 24px; }
+  .favourites-copy .serif-title { font-size: clamp(58px, 7.1vw, 116px); line-height: .99; }
+  .favourites-copy .serif-title em { color: var(--red); }
+  .favourites-copy .section-copy { margin-top: 30px; max-width: 290px; }
+  .sandwich-figure { width: min(100%, 820px); justify-self: end; }
+  .sandwich-stage { position: relative; aspect-ratio: 1; }
+  .sandwich-pointer { position: absolute; inset: 0; pointer-events: none; }
+  .sandwich-layer { position: absolute; inset: 0; }
+  .sandwich-layer--bread { z-index: 1; }
+  .sandwich-layer--cheese { z-index: 2; }
+  .sandwich-layer--tomato { z-index: 3; }
+  .sandwich-image { width: 100%; }
+  .sandwich-image--cheese { transform: translateY(-2%) scale(.86); }
+  .sandwich-image--tomato { transform: translateY(-4%) scale(.8); }
+  .sandwich-figure figcaption { text-align: center; font-size: 9px; margin-bottom: 28px; }
+  .favourites-bottom { display: flex; align-items: center; justify-content: space-between; gap: 24px; border-top: 1px solid #69101735; padding-top: 24px; }
+  .favourites-ingredients { display: flex; flex-wrap: wrap; gap: 20px 40px; padding: 0; margin: 0; list-style: none; }
+  .favourites-ingredients li { display: flex; align-items: baseline; gap: 10px; font-size: 15px; }
+  .favourites-ingredients li:last-child { color: var(--red); }
+  .favourites-bottom > .micro { font-size: 9px; }
   .finale { background: var(--ink); overflow: clip; padding: 100px var(--gutter) 65px; position: relative; }
   .finale > .micro { display: block; margin-bottom: 40px; }
   .finale h2 { font-family: 'Anton', Impact, sans-serif; font-weight: 400; font-size: clamp(62px, 11.6vw, 215px); letter-spacing: -.025em; line-height: 1.03; }
@@ -199,7 +223,6 @@
     .site-header .wordmark { font-size: 35px; }
     .site-header nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-row: 2; grid-column: 1 / -1; width: 100%; padding-top: 8px; border-top: 1px solid #fff1cf30; gap: 0 24px; }
     .site-header nav a { font-size: 12px; justify-content: space-between; }
-    .site-header nav a:last-child { grid-column: 1 / -1; }
     .header-controls { grid-column: 2; grid-row: 1; }
     .hero { height: auto; min-height: 730px; padding-top: 8px; }
     .hero-topline { font-size: 8px; gap: 20px; padding-top: 0; }
@@ -254,6 +277,18 @@
     .ticker { padding-block: 24px; }
     .ticker span { font-size: 35px; }
     .variety { padding-block: 36px 45px; }
+    .favourites { padding-block: 26px 30px; }
+    .favourites-layout { display: block; }
+    .favourites-copy { padding-block: 15px 0; }
+    .favourites-edition { margin-bottom: 20px; }
+    .favourites-copy .serif-title { font-size: clamp(55px, 12vw, 82px); }
+    .favourites-copy .section-copy { margin-top: 23px; }
+    .sandwich-figure { width: calc(100% + 20px); margin: 8px -10px 0; }
+    .sandwich-figure figcaption { font-size: 8px; margin-bottom: 30px; }
+    .favourites-bottom { display: block; padding-top: 20px; }
+    .favourites-ingredients { gap: 15px 22px; }
+    .favourites-ingredients li { font-size: 12px; }
+    .favourites-bottom > .micro { display: block; margin-top: 25px; }
     .variety-heading { display: block; margin-top: 25px; }
     .variety-heading .section-copy { max-width: 330px; margin-top: 26px; }
     .variety-stage { width: 112%; margin-left: -6%; margin-top: 22px; }

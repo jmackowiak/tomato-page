@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import bread from '../assets/sandwich-bread.png';
+import cheese from '../assets/sandwich-cheese.png';
+import tomato from '../assets/sandwich-tomato.png';
+import { translator, type Locale } from '../i18n/content';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = translator(locale);
+const ingredients = [
+  { id: 'bread', image: bread, name: t('favouritesBread') },
+  { id: 'cheese', image: cheese, name: t('favouritesCheese') },
+  { id: 'tomato', image: tomato, name: t('favouritesTomato') },
+];
+---
+<section class="favourites" id="ulubione" aria-labelledby="favourites-title">
+  <div class="section-label micro"><span>{t('favouritesIndex')}</span><span>{t('favouritesEyebrow')}</span></div>
+  <div class="favourites-layout">
+    <div class="favourites-copy">
+      <span class="micro favourites-edition" data-reveal>{t('favouritesEdition')}</span>
+      <h2 id="favourites-title" class="serif-title" data-reveal>{t('favouritesLine1')}<br />{t('favouritesLine2')}<br /><em>{t('favouritesEmphasis')}</em></h2>
+      <p class="section-copy" data-reveal>{t('favouritesCopy')}</p>
+    </div>
+    <figure class="sandwich-figure">
+      <div class="sandwich-stage" role="img" aria-label={t('favouritesArt')}>
+        <div class="sandwich-pointer">
+          {ingredients.map((ingredient) => (
+            <div class={`sandwich-layer sandwich-layer--${ingredient.id}`} data-sandwich-layer={ingredient.id}>
+              <Image class={`sandwich-image sandwich-image--${ingredient.id}`} src={ingredient.image} alt="" widths={[320, 640, 960]} sizes="(max-width: 700px) 100vw, 58vw" format="webp" quality={82} loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </div>
+      <figcaption class="micro">{t('favouritesCaption')}</figcaption>
+    </figure>
+  </div>
+  <div class="favourites-bottom">
+    <ol class="favourites-ingredients" aria-label={t('favouritesIngredients')}>
+      {ingredients.map((ingredient, index) => <li><span class="micro" aria-hidden="true">0{index + 1}</span>{ingredient.name}</li>)}
+    </ol>
+    <span class="micro">{t('favouritesNote')}</span>
+  </div>
+</section>
