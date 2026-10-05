@@ -3,6 +3,58 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+function createTicker(): () => void {
+  const container = document.querySelector<HTMLElement>('.ticker');
+  const track = container?.querySelector<HTMLElement>('.ticker-track');
+  const phrase = track?.firstElementChild;
+  if (!container || !track || !phrase) return () => {};
+
+  const originalCount = track.children.length;
+  const pixelsPerSecond = 45;
+  let phraseWidth = 0;
+  let tween: gsap.core.Tween | undefined;
+  const resize = () => {
+    const width = phrase.getBoundingClientRect().width;
+    const viewport = container.getBoundingClientRect().width;
+    if (width <= 0) return;
+    // Cover the viewport even after one entire phrase has moved off-screen.
+    const count = Math.max(originalCount, Math.ceil(viewport / width) + 1);
+    const additions = document.createDocumentFragment();
+    for (let index = track.children.length; index < count; index++) {
+      const copy = phrase.cloneNode(true) as HTMLElement;
+      copy.dataset.tickerCopy = '';
+      additions.append(copy);
+    }
+    track.append(additions);
+    while (track.children.length > count) track.lastElementChild?.remove();
+
+    if (phraseWidth !== width) {
+      const progress = tween?.progress() ?? 0;
+      phraseWidth = width;
+      // Keep the current position within the phrase after font/viewport changes.
+      tween?.duration(width / pixelsPerSecond).invalidate().progress(progress);
+    }
+  };
+  resize();
+  gsap.set(track, { willChange: 'transform' });
+  tween = gsap.fromTo(track, { x: 0 }, {
+    x: () => -phraseWidth, duration: phraseWidth / pixelsPerSecond,
+    repeat: -1, ease: 'none', paused: true,
+  });
+  ScrollTrigger.create({
+    trigger: container, start: 'top bottom', end: 'bottom top',
+    onToggle: (self) => { if (self.isActive) tween?.play(); else tween?.pause(); },
+  });
+  // Also catches font loading; measurements are never taken on animation frames.
+  const observer = new ResizeObserver(resize);
+  observer.observe(container);
+  observer.observe(phrase);
+  return () => {
+    observer.disconnect();
+    track.querySelectorAll('[data-ticker-copy]').forEach((copy) => copy.remove());
+  };
+}
+
 export function createMotion(): () => void {
   const media = gsap.matchMedia();
   media.add({ desktop: '(min-width: 701px)', mobile: '(max-width: 700px)', tall: '(min-height: 720px)' }, (context) => {
@@ -74,12 +126,12 @@ export function createMotion(): () => void {
       gsap.from(element, { y: desktop ? 28 : 16, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 93%', once: true } });
     }
 
-    const ticker = gsap.to('.ticker-track', { xPercent: -50, duration: 28, repeat: -1, ease: 'none', paused: true });
-    ScrollTrigger.create({ trigger: '.ticker', start: 'top bottom', end: 'bottom top', onToggle: (self) => { if (self.isActive) ticker.play(); else ticker.pause(); } });
+    const cleanupTicker = createTicker();
 
     const float = gsap.getTweensOf('.hero-float');
     ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (self) => { float.forEach((tween) => self.isActive ? tween.resume() : tween.pause()); } });
     return () => {
+      cleanupTicker();
       if (ripening) {
         delete ripening.dataset.ripeningAnimated;
         delete ripening.dataset.ripeningPinned;

@@ -145,7 +145,7 @@
   .identity-bottom a { flex-shrink: 0; text-decoration: underline; text-underline-offset: 4px; padding-block: 8px; }
   .ticker { overflow: hidden; border-bottom: 1px solid #fff1cf45; background: var(--red); padding-block: 30px; }
   .ticker-track { width: max-content; display: flex; }
-  .ticker span { font-family: 'Anton', Impact, sans-serif; font-size: clamp(32px, 4vw, 65px); line-height: 1; letter-spacing: -.02em; white-space: nowrap; }
+  .ticker span { flex-shrink: 0; font-family: 'Anton', Impact, sans-serif; font-size: clamp(32px, 4vw, 65px); line-height: 1; letter-spacing: -.02em; white-space: nowrap; }
   .ticker i { font-family: 'Instrument Serif', Georgia, serif; }
   .variety { overflow: clip; padding: 60px var(--gutter) 70px; }
   .variety .section-label { border-top: 0; padding-top: 0; }
