@@ -32,11 +32,14 @@ const shapes = [
     </div>
   </div>
   <div class="gallery-panels">
+    <div class="gallery-swipe-zone" data-gallery-swipe aria-hidden="true" hidden></div>
     <span class="gallery-word" data-gallery-word aria-hidden="true" hidden>{t('galleryRound')}</span>
     {shapes.map((shape, index) => (
       <figure class="gallery-item" id={`gallery-panel-${shape.id}`} data-gallery-item data-gallery-slot={index === 0 ? 'center' : index === 1 ? 'right' : 'left'}>
         <div class="gallery-portrait" data-gallery-portrait>
-          <Image src={shape.image} alt={t(shape.alt)} widths={[320, 600, 900]} sizes="(max-width: 700px) 82vw, (max-width: 1250px) 48vw, 600px" format="webp" quality={82} loading="lazy" />
+          <div class="gallery-swipe-offset">
+            <Image src={shape.image} alt={t(shape.alt)} widths={[320, 600, 900]} sizes="(max-width: 700px) 82vw, (max-width: 1250px) 48vw, 600px" format="webp" quality={82} loading="lazy" draggable="false" />
+          </div>
         </div>
         <figcaption class="gallery-caption" data-gallery-caption>
           <h3>{t(shape.name)}<span aria-hidden="true">.</span></h3>

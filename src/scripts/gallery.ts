@@ -1,3 +1,5 @@
+import { enableGallerySwipe } from './gallery-swipe';
+
 const gallery = document.querySelector<HTMLElement>('[data-gallery]');
 if (gallery) {
   const tabs = [...gallery.querySelectorAll<HTMLButtonElement>('[data-gallery-tab]')];
@@ -50,6 +52,11 @@ if (gallery) {
         tabs[next].focus();
       });
     });
+    const swipeZone = gallery.querySelector<HTMLElement>('[data-gallery-swipe]');
+    if (swipeZone) {
+      enableGallerySwipe(swipeZone, (direction) => select((selected + direction + tabs.length) % tabs.length));
+      swipeZone.hidden = false;
+    }
     select(0, false);
     gallery.dataset.galleryReady = 'true';
     controls.hidden = false;
